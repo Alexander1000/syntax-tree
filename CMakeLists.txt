@@ -13,6 +13,7 @@ set(SYNTAX_TREE_SOURCES
 )
 
 include_directories(
+    include
     /usr/local/include
 )
 

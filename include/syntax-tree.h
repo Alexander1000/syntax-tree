@@ -1,0 +1,3 @@
+#ifndef SYNTAX_TREE_INCLUDE_H
+#define SYNTAX_TREE_INCLUDE_H
+#endif
