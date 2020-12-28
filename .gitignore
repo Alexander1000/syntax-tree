@@ -1,5 +1,6 @@
 .idea
 syntax-tree
+!include/syntax-tree
 CMakeFiles
 CMakeCache.txt
 Makefile

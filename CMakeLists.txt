@@ -5,7 +5,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 project(syntax-tree)
 
-set(SYNTAX_TREE_SHARED_SOURCES)
+set(SYNTAX_TREE_SHARED_SOURCES
+    src/lexer.cpp
+)
 
 set(SYNTAX_TREE_SOURCES
     src/main.cpp
