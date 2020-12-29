@@ -9,6 +9,7 @@ set(SYNTAX_TREE_SHARED_SOURCES
     src/lexer.cpp
     src/token/token.cpp
     src/token/type-token.cpp
+    src/position.cpp
 )
 
 set(SYNTAX_TREE_SOURCES
