@@ -1,0 +1,12 @@
+#include <syntax-tree.h>
+
+namespace SyntaxTree::Token
+{
+    OpenToken::OpenToken(int line, int column) : Token(line, column, nullptr)
+    {
+    }
+
+    Type OpenToken::getType() {
+        return Type::OpenType;
+    }
+}

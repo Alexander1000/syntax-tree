@@ -45,11 +45,13 @@ namespace SyntaxTree
                 case Mode::MainMode: {
                     if (*curSymbol == '[') {
                         // open token
+                        token = new Token::OpenToken(this->position->getLine(), this->position->getColumn());
                         return token;
                     }
 
                     if (*curSymbol == ']') {
                         // close token
+                        token = new Token::CloseToken(this->position->getLine(), this->position->getColumn());
                         return token;
                     }
 

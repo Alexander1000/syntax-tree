@@ -47,6 +47,20 @@ namespace SyntaxTree::Token
         TypeToken(int line, int column, IOBuffer::IOReader *reader);
         Type getType() final;
     };
+
+    class OpenToken : public Token
+    {
+    public:
+        OpenToken(int line, int column);
+        Type getType() final;
+    };
+
+    class CloseToken : public Token
+    {
+    public:
+        CloseToken(int line, int column);
+        Type getType() final;
+    };
 }
 
 #endif
