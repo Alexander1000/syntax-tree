@@ -13,6 +13,9 @@ namespace SyntaxTree::Render
         Render();
         void renderTree(IOBuffer::IOBuffer* buffer, SyntaxTree::Syntax::SyntaxElement* tree);
         void renderTree(IOBuffer::IOBuffer* buffer, SyntaxTree::Syntax::Rule* rule, std::list<SyntaxTree::Syntax::SyntaxElement*>* elements);
+
+    private:
+        void renderRecord(IOBuffer::IOBuffer* buffer, SyntaxTree::Token::Token* tokenName, SyntaxTree::Syntax::SyntaxElement* rulesTree, int numberOfRecord);
     };
 }
 
