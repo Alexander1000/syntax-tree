@@ -72,6 +72,7 @@ namespace SyntaxTree
                         ioWriter->write(curSymbol, 1);
                         curSymbol = this->getNextChar();
                     }
+                    this->pushStackChar(curSymbol);
                     // token type rule
                     token = new Token::TypeToken(this->position->getLine(), this->position->getColumn(), ioWriter);
                     this->mode = Mode::RuleMode;
@@ -94,8 +95,14 @@ namespace SyntaxTree
                         ioWriter->write(curSymbol, 1);
                         curSymbol = this->getNextChar();
                     }
+                    this->pushStackChar(curSymbol);
                     // token name rule
                     token = new Token::NameToken(this->position->getLine(), this->position->getColumn(), ioWriter);
+
+                    if (curSymbol != nullptr && (*curSymbol == 0x20 || *curSymbol == ']')) {
+                        this->mode = Mode::InnerMode;
+                    }
+
                     return token;
                 }
                 case Mode::RuleArgsMode: {
@@ -110,6 +117,7 @@ namespace SyntaxTree
                         ioWriter->write(curSymbol, 1);
                         curSymbol = this->getNextChar();
                     }
+                    this->pushStackChar(curSymbol);
                     // token name rule
                     token = new Token::MatchValueToken(this->position->getLine(), this->position->getColumn(), ioWriter);
                     return token;
