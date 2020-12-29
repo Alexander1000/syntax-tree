@@ -14,14 +14,14 @@ namespace SyntaxTree::Syntax
         // do make syntax tree rules
 
         // rule [t:type(s) t:doubleDot t:name t:openBrace t:matchValue t:closeBrace]
-        auto rule1 = new Rule("rule");
-        rule1->addMatch(new RuleMatch(this->tokenMap->getType("type"), "s"));
-        rule1->addMatch(new RuleMatch(this->tokenMap->getType("doubleDot")));
-        rule1->addMatch(new RuleMatch(this->tokenMap->getType("name")));
-        rule1->addMatch(new RuleMatch(this->tokenMap->getType("openBrace")));
-        rule1->addMatch(new RuleMatch(this->tokenMap->getType("matchValue")));
-        rule1->addMatch(new RuleMatch(this->tokenMap->getType("closeBrace")));
-        this->rules->push_back(rule1);
+//        auto rule1 = new Rule("rule");
+//        rule1->addMatch(new RuleMatch(this->tokenMap->getType("type"), "s"));
+//        rule1->addMatch(new RuleMatch(this->tokenMap->getType("doubleDot")));
+//        rule1->addMatch(new RuleMatch(this->tokenMap->getType("name")));
+//        rule1->addMatch(new RuleMatch(this->tokenMap->getType("openBrace")));
+//        rule1->addMatch(new RuleMatch(this->tokenMap->getType("matchValue")));
+//        rule1->addMatch(new RuleMatch(this->tokenMap->getType("closeBrace")));
+//        this->rules->push_back(rule1);
 
         // rule [t:type(t) t:doubleDot t:name t:openBrace t:matchValue t:closeBrace]
         auto rule2 = new Rule("rule");
@@ -58,6 +58,12 @@ namespace SyntaxTree::Syntax
         rule6->addMatch(new RuleMatch("ruleList"));
         rule6->addMatch(new RuleMatch("rule"));
         this->rules->push_back(rule6);
+
+        // ruleList [s:ruleList s:ruleList]
+        auto rule61 = new Rule("ruleList");
+        rule61->addMatch(new RuleMatch("ruleList"));
+        rule61->addMatch(new RuleMatch("ruleList"));
+        this->rules->push_back(rule61);
 
         // record [t:name t:open s:rule t:close]
         auto rule7 = new Rule("record");

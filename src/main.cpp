@@ -14,6 +14,6 @@ int main(int argc, char** argv) {
         token = lexer.getNextToken();
     }
     auto tree = new SyntaxTree::Syntax::Tree;
-    tree->parse(tokenList);
+    auto syntaxTree = tree->parse(tokenList);
     return 0;
 }
