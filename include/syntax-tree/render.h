@@ -3,6 +3,7 @@
 
 #include <syntax-tree/syntax.h>
 #include <io-buffer.h>
+#include <list>
 
 namespace SyntaxTree::Render
 {
@@ -11,6 +12,7 @@ namespace SyntaxTree::Render
     public:
         Render();
         void renderTree(IOBuffer::IOBuffer* buffer, SyntaxTree::Syntax::SyntaxElement* tree);
+        void renderTree(IOBuffer::IOBuffer* buffer, SyntaxTree::Syntax::Rule* rule, std::list<SyntaxTree::Syntax::SyntaxElement*>* elements);
     };
 }
 
