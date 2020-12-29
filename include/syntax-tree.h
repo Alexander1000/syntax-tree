@@ -5,5 +5,6 @@
 #include <syntax-tree/token.h>
 #include <syntax-tree/position.h>
 #include <syntax-tree/syntax.h>
+#include <syntax-tree/render.h>
 
 #endif

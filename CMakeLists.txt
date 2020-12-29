@@ -25,6 +25,7 @@ set(SYNTAX_TREE_SHARED_SOURCES
     src/syntax/syntax_element.cpp
     src/syntax/tree.cpp
     src/syntax/tree_parse_tokens.cpp
+    src/render/render.cpp
 )
 
 set(SYNTAX_TREE_SOURCES
