@@ -15,6 +15,7 @@ namespace SyntaxTree::Token
         OpenBraceType,
         CloseBraceType,
         DoubleDotType,
+        MatchValueType,
     };
 
     class TokenMap

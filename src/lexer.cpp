@@ -45,6 +45,7 @@ namespace SyntaxTree
                 case Mode::MainMode: {
                     if (*curSymbol == '[') {
                         // open token
+                        this->mode = Mode::InnerMode;
                         token = new Token::OpenToken(this->position->getLine(), this->position->getColumn());
                         return token;
                     }
@@ -52,6 +53,31 @@ namespace SyntaxTree
                     if (*curSymbol == ']') {
                         // close token
                         token = new Token::CloseToken(this->position->getLine(), this->position->getColumn());
+                        return token;
+                    }
+
+                    ioWriter = new IOBuffer::IOMemoryBuffer(16);
+                    while (curSymbol != nullptr && *curSymbol != 0x20) {
+                        ioWriter->write(curSymbol, 1);
+                        curSymbol = this->getNextChar();
+                    }
+                    // token name rule
+                    token = new Token::NameToken(this->position->getLine(), this->position->getColumn(), ioWriter);
+                    return token;
+                }
+                case Mode::InnerMode: {
+                    ioWriter = new IOBuffer::IOMemoryBuffer(3);
+                    while (curSymbol != nullptr && *curSymbol >= 'a' && *curSymbol <= 'z') {
+                        ioWriter->write(curSymbol, 1);
+                        curSymbol = this->getNextChar();
+                    }
+                    // token name rule
+                    token = new Token::TypeToken(this->position->getLine(), this->position->getColumn(), ioWriter);
+                    this->mode = Mode::RuleMode;
+                    return token;
+                }
+                case Mode::RuleMode: {
+                    if (*curSymbol == ':') {
                         return token;
                     }
 

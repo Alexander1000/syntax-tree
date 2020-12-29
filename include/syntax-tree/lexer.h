@@ -10,6 +10,8 @@ namespace SyntaxTree
 {
     enum Mode {
         MainMode,
+        InnerMode,
+        RuleMode,
     };
 
     class Lexer
