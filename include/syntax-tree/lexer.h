@@ -8,6 +8,10 @@
 
 namespace SyntaxTree
 {
+    enum Mode {
+        MainMode,
+    };
+
     class Lexer
     {
     public:
@@ -17,6 +21,7 @@ namespace SyntaxTree
     private:
         IOBuffer::CharStream* charStream;
         Position *position;
+        Mode mode;
 
         std::stack<char*>* charStack;
         std::stack<Position*>* positionStack;

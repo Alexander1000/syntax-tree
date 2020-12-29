@@ -7,6 +7,7 @@ namespace SyntaxTree
     {
         this->charStream = stream;
         this->position = new Position(0, 0);
+        this->mode = Mode::MainMode;
 
         this->charStack = new std::stack<char*>;
         this->positionStack = new std::stack<Position*>;
@@ -38,6 +39,28 @@ namespace SyntaxTree
                     curSymbol = this->getNextChar();
                 } while(curSymbol != nullptr && (*curSymbol == 0x20 || *curSymbol == '\n'));
                 continue;
+            }
+
+            switch (this->mode) {
+                case Mode::MainMode: {
+                    if (*curSymbol == '[') {
+                        // open token
+                        return token;
+                    }
+
+                    if (*curSymbol == ']') {
+                        // close token
+                        return token;
+                    }
+
+                    ioWriter = new IOBuffer::IOMemoryBuffer(16);
+                    while (curSymbol != nullptr && *curSymbol != 0x20) {
+                        ioWriter->write(curSymbol, 1);
+                        curSymbol = this->getNextChar();
+                    }
+                    // token name rule
+                    return token;
+                }
             }
 
             curSymbol = this->getNextChar();
