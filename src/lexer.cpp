@@ -50,12 +50,6 @@ namespace SyntaxTree
                         return token;
                     }
 
-                    if (*curSymbol == ']') {
-                        // close token
-                        token = new Token::CloseToken(this->position->getLine(), this->position->getColumn());
-                        return token;
-                    }
-
                     ioWriter = new IOBuffer::IOMemoryBuffer(16);
                     while (curSymbol != nullptr && *curSymbol != 0x20) {
                         ioWriter->write(curSymbol, 1);
@@ -66,6 +60,13 @@ namespace SyntaxTree
                     return token;
                 }
                 case Mode::InnerMode: {
+                    if (*curSymbol == ']') {
+                        // close token
+                        this->mode = Mode::MainMode;
+                        token = new Token::CloseToken(this->position->getLine(), this->position->getColumn());
+                        return token;
+                    }
+
                     ioWriter = new IOBuffer::IOMemoryBuffer(3);
                     while (curSymbol != nullptr && *curSymbol >= 'a' && *curSymbol <= 'z') {
                         ioWriter->write(curSymbol, 1);
