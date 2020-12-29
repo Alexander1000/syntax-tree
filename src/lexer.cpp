@@ -71,7 +71,7 @@ namespace SyntaxTree
                         ioWriter->write(curSymbol, 1);
                         curSymbol = this->getNextChar();
                     }
-                    // token name rule
+                    // token type rule
                     token = new Token::TypeToken(this->position->getLine(), this->position->getColumn(), ioWriter);
                     this->mode = Mode::RuleMode;
                     return token;
@@ -89,7 +89,7 @@ namespace SyntaxTree
                     }
 
                     ioWriter = new IOBuffer::IOMemoryBuffer(16);
-                    while (curSymbol != nullptr && *curSymbol != 0x20) {
+                    while (curSymbol != nullptr && ((*curSymbol >= 'a' && *curSymbol <= 'z') || (*curSymbol >= 'A' && *curSymbol <= 'Z'))) {
                         ioWriter->write(curSymbol, 1);
                         curSymbol = this->getNextChar();
                     }
@@ -105,7 +105,7 @@ namespace SyntaxTree
                     }
 
                     ioWriter = new IOBuffer::IOMemoryBuffer(16);
-                    while (curSymbol != nullptr && *curSymbol != 0x20) {
+                    while (curSymbol != nullptr && ((*curSymbol >= 'a' && *curSymbol <= 'z') || (*curSymbol >= 'A' && *curSymbol <= 'Z'))) {
                         ioWriter->write(curSymbol, 1);
                         curSymbol = this->getNextChar();
                     }

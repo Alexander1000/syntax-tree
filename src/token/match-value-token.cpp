@@ -7,6 +7,6 @@ namespace SyntaxTree::Token
     }
 
     Type MatchValueToken::getType() {
-        return Type::MathValueType;
+        return Type::MatchValueType;
     }
 }
