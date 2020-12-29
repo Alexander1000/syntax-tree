@@ -32,6 +32,14 @@ namespace SyntaxTree
                 continue;
             }
 
+            if (*curSymbol == 0x20 || *curSymbol == '\n') {
+                // skip spaces
+                do {
+                    curSymbol = this->getNextChar();
+                } while(curSymbol != nullptr && (*curSymbol == 0x20 || *curSymbol == '\n'));
+                continue;
+            }
+
             curSymbol = this->getNextChar();
         }
 
