@@ -74,5 +74,22 @@ namespace SyntaxTree::Syntax
         rule8->addMatch(new RuleMatch("ruleList"));
         rule8->addMatch(new RuleMatch(this->tokenMap->getType("close")));
         this->rules->push_back(rule8);
+
+        // tree [s:record s:record]
+        auto rule9 = new Rule("tree");
+        rule9->addMatch(new RuleMatch("record"));
+        rule9->addMatch(new RuleMatch("record"));
+        this->rules->push_back(rule9);
+
+        // tree [s:record]
+        auto rule10 = new Rule("tree");
+        rule10->addMatch(new RuleMatch("record"));
+        this->rules->push_back(rule10);
+
+        // tree [s:tree s:tree]
+        auto rule11 = new Rule("tree");
+        rule11->addMatch(new RuleMatch("tree"));
+        rule11->addMatch(new RuleMatch("tree"));
+        this->rules->push_back(rule11);
     }
 }
