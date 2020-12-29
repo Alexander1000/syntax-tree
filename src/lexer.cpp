@@ -22,6 +22,19 @@ namespace SyntaxTree
         Token::Token* token = nullptr;
         IOBuffer::IOMemoryBuffer* ioWriter = nullptr;
 
+        while (curSymbol != nullptr) {
+            if (*curSymbol == '#') {
+                // skip comments
+                do {
+                    curSymbol = this->getNextChar();
+                } while (curSymbol != nullptr && *curSymbol != '\n');
+                curSymbol = this->getNextChar();
+                continue;
+            }
+
+            curSymbol = this->getNextChar();
+        }
+
         return token;
     }
 
