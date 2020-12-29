@@ -15,5 +15,8 @@ int main(int argc, char** argv) {
     }
     auto tree = new SyntaxTree::Syntax::Tree;
     auto syntaxTree = tree->parse(tokenList);
+    auto render = new SyntaxTree::Render::Render;
+    auto buffer = new IOBuffer::IOMemoryBuffer(4096);
+    render->renderTree(buffer, syntaxTree);
     return 0;
 }
