@@ -90,6 +90,13 @@ namespace SyntaxTree::Token
         CloseBraceToken(int line, int column);
         Type getType() final;
     };
+
+    class MatchValueToken : public Token
+    {
+    public:
+        MatchValueToken(int line, int column, IOBuffer::IOReader *reader);
+        Type getType() final;
+    };
 }
 
 #endif

@@ -99,11 +99,19 @@ namespace SyntaxTree
                 }
                 case Mode::RuleArgsMode: {
                     if (*curSymbol == ')') {
-                        this->mode = Mode::RuleMode;
+                        this->mode = Mode::InnerMode;
                         token = new Token::CloseBraceToken(this->position->getLine(), this->position->getColumn());
                         return token;
                     }
-                    break;
+
+                    ioWriter = new IOBuffer::IOMemoryBuffer(16);
+                    while (curSymbol != nullptr && *curSymbol != 0x20) {
+                        ioWriter->write(curSymbol, 1);
+                        curSymbol = this->getNextChar();
+                    }
+                    // token name rule
+                    token = new Token::MatchValueToken(this->position->getLine(), this->position->getColumn(), ioWriter);
+                    return token;
                 }
             }
 
