@@ -8,11 +8,13 @@
 namespace SyntaxTree::Token
 {
     enum Type {
-        RuleType,
-        RuleTokenType,
+        TypeType,
+        NameType,
         OpenType,
         CloseType,
-        RuleNameType,
+        OpenBraceType,
+        CloseBraceType,
+        DoubleDotType,
     };
 
     class TokenMap
