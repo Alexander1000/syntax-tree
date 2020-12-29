@@ -12,6 +12,7 @@ namespace SyntaxTree
         MainMode,
         InnerMode,
         RuleMode,
+        RuleArgsMode,
     };
 
     class Lexer

@@ -14,6 +14,7 @@ set(SYNTAX_TREE_SHARED_SOURCES
     src/token/open-token.cpp
     src/token/close-token.cpp
     src/token/name-token.cpp
+    src/token/double-dot-token.cpp
     src/position.cpp
 )
 

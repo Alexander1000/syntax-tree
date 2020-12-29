@@ -69,6 +69,13 @@ namespace SyntaxTree::Token
         NameToken(int line, int column, IOBuffer::IOReader *reader);
         Type getType() final;
     };
+
+    class DoubleDotToken : public Token
+    {
+    public:
+        DoubleDotToken(int line, int column);
+        Type getType() final;
+    };
 }
 
 #endif

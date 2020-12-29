@@ -81,6 +81,11 @@ namespace SyntaxTree
                         return token;
                     }
 
+                    if (*curSymbol == '(') {
+                        this->mode = Mode::RuleArgsMode;
+                        return token;
+                    }
+
                     ioWriter = new IOBuffer::IOMemoryBuffer(16);
                     while (curSymbol != nullptr && *curSymbol != 0x20) {
                         ioWriter->write(curSymbol, 1);
@@ -89,6 +94,9 @@ namespace SyntaxTree
                     // token name rule
                     token = new Token::NameToken(this->position->getLine(), this->position->getColumn(), ioWriter);
                     return token;
+                }
+                case Mode::RuleArgsMode: {
+                    break;
                 }
             }
 
