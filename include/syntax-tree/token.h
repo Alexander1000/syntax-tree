@@ -9,10 +9,10 @@ namespace SyntaxTree::Token
 {
     enum Type {
         RuleType,
-        TokenType,
+        RuleTokenType,
         OpenType,
         CloseType,
-        NameType,
+        RuleNameType,
     };
 
     class TokenMap
