@@ -23,6 +23,10 @@ namespace SyntaxTree::Render
 
     void Render::renderTree(IOBuffer::IOBuffer *buffer, SyntaxTree::Syntax::Rule* rule, std::list<SyntaxTree::Syntax::SyntaxElement*>* elements)
     {
-        
+        if (strcmp(rule->getName(), "tree") == 0) {
+            for (auto it = elements->begin(); it != elements->end(); it++) {
+                this->renderTree(buffer, *it);
+            }
+        }
     }
 }
