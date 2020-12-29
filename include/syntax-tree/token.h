@@ -61,6 +61,13 @@ namespace SyntaxTree::Token
         CloseToken(int line, int column);
         Type getType() final;
     };
+
+    class NameToken : public Token
+    {
+    public:
+        NameToken(int line, int column, IOBuffer::IOReader *reader);
+        Type getType() final;
+    };
 }
 
 #endif

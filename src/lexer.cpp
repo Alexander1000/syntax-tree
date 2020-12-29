@@ -61,6 +61,7 @@ namespace SyntaxTree
                         curSymbol = this->getNextChar();
                     }
                     // token name rule
+                    token = new Token::NameToken(this->position->getLine(), this->position->getColumn(), ioWriter);
                     return token;
                 }
             }
