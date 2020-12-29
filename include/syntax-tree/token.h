@@ -40,6 +40,13 @@ namespace SyntaxTree::Token
         int column;
         IOBuffer::IOReader *reader;
     };
+
+    class TypeToken : public Token
+    {
+    public:
+        TypeToken(int line, int column, IOBuffer::IOReader *reader);
+        Type getType() final;
+    };
 }
 
 #endif
