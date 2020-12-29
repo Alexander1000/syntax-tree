@@ -32,7 +32,19 @@ namespace SyntaxTree::Render
 
         if (strcmp(rule->getName(), "record") == 0) {
             std::cout << std::endl;
-            this->renderRecord(buffer, nullptr, nullptr, 0);
+            auto it = elements->begin(); // token with name
+            auto tokenNameElement = *it;
+            it++; // [ - open token
+            it++; // rule/ruleList
+            auto rulesTree = *it;
+            it++; // ] - close token
+
+            if (tokenNameElement->getType() != SyntaxTree::Syntax::SyntaxElementType::TokenType) {
+                // todo: make another error
+                throw new SyntaxTree::Token::UnknownToken;
+            }
+
+            this->renderRecord(buffer, tokenNameElement->getToken(), rulesTree, 0);
             return;
         }
     }
