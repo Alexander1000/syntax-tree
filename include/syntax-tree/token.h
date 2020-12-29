@@ -76,6 +76,20 @@ namespace SyntaxTree::Token
         DoubleDotToken(int line, int column);
         Type getType() final;
     };
+
+    class OpenBraceToken : public Token
+    {
+    public:
+        OpenBraceToken(int line, int column);
+        Type getType() final;
+    };
+
+    class CloseBraceToken : public Token
+    {
+    public:
+        CloseBraceToken(int line, int column);
+        Type getType() final;
+    };
 }
 
 #endif

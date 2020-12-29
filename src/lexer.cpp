@@ -78,11 +78,13 @@ namespace SyntaxTree
                 }
                 case Mode::RuleMode: {
                     if (*curSymbol == ':') {
+                        token = new Token::DoubleDotToken(this->position->getLine(), this->position->getColumn());
                         return token;
                     }
 
                     if (*curSymbol == '(') {
                         this->mode = Mode::RuleArgsMode;
+                        token = new Token::OpenBraceToken(this->position->getLine(), this->position->getColumn());
                         return token;
                     }
 
@@ -96,6 +98,11 @@ namespace SyntaxTree
                     return token;
                 }
                 case Mode::RuleArgsMode: {
+                    if (*curSymbol == ')') {
+                        this->mode = Mode::RuleMode;
+                        token = new Token::CloseBraceToken(this->position->getLine(), this->position->getColumn());
+                        return token;
+                    }
                     break;
                 }
             }
