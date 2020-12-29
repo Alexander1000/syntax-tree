@@ -7,6 +7,8 @@
 
 namespace SyntaxTree::Token
 {
+    class UnknownToken {};
+
     enum Type {
         TypeType,
         NameType,

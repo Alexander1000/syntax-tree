@@ -18,7 +18,13 @@ set(SYNTAX_TREE_SHARED_SOURCES
     src/token/open-brace-token.cpp
     src/token/close-brace-token.cpp
     src/token/match-value-token.cpp
+    src/token/token_map.cpp
     src/position.cpp
+    src/syntax/rule.cpp
+    src/syntax/rule_match.cpp
+    src/syntax/syntax_element.cpp
+    src/syntax/tree.cpp
+    src/syntax/tree_parse_tokens.cpp
 )
 
 set(SYNTAX_TREE_SOURCES
