@@ -8,12 +8,12 @@ int main(int argc, char** argv) {
     SyntaxTree::Lexer lexer(&charStream);
     auto token = lexer.getNextToken();
     while (token != nullptr) {
-        auto reader = token->getReader();
+        auto tReader = token->getReader();
         char* str = (char*) malloc(sizeof(char) * 1024);
         memset(str, 0, sizeof(char) * 1024);
-        reader->read(str, 1023);
+        tReader->read(str, 1023);
         std::cout << "Token: " << str << std::endl;
-        reader = token->getReader();
+        token = lexer.getNextToken();
     }
     return 0;
 }
