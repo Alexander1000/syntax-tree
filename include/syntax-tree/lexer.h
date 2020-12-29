@@ -3,6 +3,8 @@
 
 #include <io-buffer.h>
 #include <syntax-tree/token.h>
+#include <stack>
+#include <syntax-tree/position.h>
 
 namespace SyntaxTree
 {
@@ -14,6 +16,13 @@ namespace SyntaxTree
 
     private:
         IOBuffer::CharStream* charStream;
+        Position *position;
+
+        std::stack<char*>* charStack;
+        std::stack<Position*>* positionStack;
+
+        char* getNextChar();
+        void pushStackChar(char*);
     };
 }
 
