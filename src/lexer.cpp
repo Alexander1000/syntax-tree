@@ -14,7 +14,15 @@ namespace SyntaxTree
 
     Token::Token* Lexer::getNextToken()
     {
-        return nullptr;
+        char* curSymbol = this->getNextChar();
+        if (curSymbol == nullptr) {
+            return nullptr;
+        }
+
+        Token::Token* token = nullptr;
+        IOBuffer::IOMemoryBuffer* ioWriter = nullptr;
+
+        return token;
     }
 
     char* Lexer::getNextChar()
