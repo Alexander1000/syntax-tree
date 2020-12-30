@@ -56,5 +56,21 @@ namespace SyntaxTree::Render
         int numberOfRecord
     ) {
         // render record
+        auto reader = (IOBuffer::IOMemoryBuffer*) tokenName->getReader();
+        reader->setPosition(0);
+        char* strRuleName = (char*) malloc(sizeof(char) * 32);
+        memset(strRuleName, 0, sizeof(char) * 32);
+        reader->read(strRuleName, 32);
+        char* strMatchRule = (char*) malloc(sizeof(char) * 1024);
+        memset(strMatchRule, 0, sizeof(char) * 1024);
+        sprintf(strMatchRule, "auto rule%02d = new SyntaxTree::Syntax::Rule(\"%s\");", numberOfRecord, strRuleName);
+
+        std::cout << strMatchRule << std::endl;
+
+        char* strAddRuleToList = (char*) malloc(sizeof(char) * 1024);
+        memset(strAddRuleToList, 0, sizeof(char) * 1024);
+        sprintf(strAddRuleToList, "this->rules->push_back(rule%02d);", numberOfRecord);
+
+        std::cout << strAddRuleToList << std::endl;
     }
 }
