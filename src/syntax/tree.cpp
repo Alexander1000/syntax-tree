@@ -9,6 +9,9 @@ namespace SyntaxTree::Syntax
         this->initializeDefaults();
     }
 
+    /**
+     * @syntax-tree: autogenerate
+     */
     void Tree::initializeDefaults()
     {
         // do make syntax tree rules
