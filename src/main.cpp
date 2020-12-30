@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
     auto tree = new SyntaxTree::Syntax::Tree;
     auto syntaxTree = tree->parse(tokenList);
     auto render = new SyntaxTree::Render::Render;
-    auto output = new IOBuffer::IOMemoryBuffer(4096);
+    auto output = new IOBuffer::IOMemoryBuffer(8192);
     render->renderTree(output, syntaxTree);
 
     int nRead;
@@ -30,6 +30,6 @@ int main(int argc, char** argv) {
     } while(nRead != 0);
 
     std::cout << std::endl;
-    
+
     return 0;
 }

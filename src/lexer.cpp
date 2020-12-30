@@ -91,7 +91,7 @@ namespace SyntaxTree
                     }
 
                     ioWriter = new IOBuffer::IOMemoryBuffer(16);
-                    while (curSymbol != nullptr && ((*curSymbol >= 'a' && *curSymbol <= 'z') || (*curSymbol >= 'A' && *curSymbol <= 'Z'))) {
+                    while (curSymbol != nullptr && ((*curSymbol >= 'a' && *curSymbol <= 'z') || (*curSymbol >= 'A' && *curSymbol <= 'Z') || *curSymbol == '_')) {
                         ioWriter->write(curSymbol, 1);
                         curSymbol = this->getNextChar();
                     }
