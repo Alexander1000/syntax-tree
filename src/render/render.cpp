@@ -32,7 +32,6 @@ namespace SyntaxTree::Render
         }
 
         if (strcmp(rule->getName(), "record") == 0) {
-            std::cout << std::endl;
             auto it = elements->begin(); // token with name
             auto tokenNameElement = *it;
             it++; // [ - open token
@@ -46,7 +45,7 @@ namespace SyntaxTree::Render
             }
 
             this->renderRecord(buffer, tokenNameElement->getToken(), rulesTree, this->lastNumberOfRecord++);
-            std::cout << std::endl;
+            buffer->write("\n", 1);
             return;
         }
     }
@@ -65,9 +64,8 @@ namespace SyntaxTree::Render
         reader->read(strRuleName, 32);
         char* strMatchRule = (char*) malloc(sizeof(char) * 1024);
         memset(strMatchRule, 0, sizeof(char) * 1024);
-        sprintf(strMatchRule, "auto rule%02d = new SyntaxTree::Syntax::Rule(\"%s\");", numberOfRecord, strRuleName);
-
-        std::cout << strMatchRule << std::endl;
+        sprintf(strMatchRule, "auto rule%02d = new SyntaxTree::Syntax::Rule(\"%s\");\n", numberOfRecord, strRuleName);
+        buffer->write(strMatchRule, strlen(strMatchRule));
 
         if (rulesTree->getType() != SyntaxTree::Syntax::SyntaxElementType::SyntaxType) {
             throw new SyntaxTree::Token::UnknownToken;
@@ -94,9 +92,8 @@ namespace SyntaxTree::Render
 
         char* strAddRuleToList = (char*) malloc(sizeof(char) * 1024);
         memset(strAddRuleToList, 0, sizeof(char) * 1024);
-        sprintf(strAddRuleToList, "this->rules->push_back(rule%02d);", numberOfRecord);
-
-        std::cout << strAddRuleToList << std::endl;
+        sprintf(strAddRuleToList, "this->rules->push_back(rule%02d);\n", numberOfRecord);
+        buffer->write(strAddRuleToList, strlen(strAddRuleToList));
     }
 
     void Render::renderRuleRecord(IOBuffer::IOBuffer *buffer, SyntaxTree::Syntax::SyntaxElement* syntaxElement, int numberOfRecord)
@@ -160,9 +157,8 @@ namespace SyntaxTree::Render
             // make final record
             char* strRuleRecord = (char*) malloc(sizeof(char) * 1024);
             memset(strRuleRecord, 0, sizeof(char) * 1024);
-            sprintf(strRuleRecord, "rule%02d->addMatch(new RuleMatch(%s));", numberOfRecord, strInnerRule);
-
-            std::cout << strRuleRecord << std::endl;
+            sprintf(strRuleRecord, "rule%02d->addMatch(new RuleMatch(%s));\n", numberOfRecord, strInnerRule);
+            buffer->write(strRuleRecord, strlen(strRuleRecord));
         }
     }
 }
