@@ -16,6 +16,7 @@ namespace SyntaxTree::Render
 
     private:
         void renderRecord(IOBuffer::IOBuffer* buffer, SyntaxTree::Token::Token* tokenName, SyntaxTree::Syntax::SyntaxElement* rulesTree, int numberOfRecord);
+        void renderRuleRecord(IOBuffer::IOBuffer* buffer, SyntaxTree::Syntax::SyntaxElement* syntaxElement, int numberOfRecord);
     };
 }
 

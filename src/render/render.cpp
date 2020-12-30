@@ -82,7 +82,7 @@ namespace SyntaxTree::Render
                 throw new SyntaxTree::Token::UnknownToken;
             }
             auto ruleElement = sntxRuleElement->getElement();
-            std::cout << std::endl;
+            this->renderRuleRecord(buffer, ruleElement, numberOfRecord);
         }
 
         char* strAddRuleToList = (char*) malloc(sizeof(char) * 1024);
@@ -90,5 +90,72 @@ namespace SyntaxTree::Render
         sprintf(strAddRuleToList, "this->rules->push_back(rule%02d);", numberOfRecord);
 
         std::cout << strAddRuleToList << std::endl;
+    }
+
+    void Render::renderRuleRecord(IOBuffer::IOBuffer *buffer, SyntaxTree::Syntax::SyntaxElement* syntaxElement, int numberOfRecord)
+    {
+        auto rule = syntaxElement->getRule();
+        if (strcmp(rule->getName(), "ruleList") == 0) {
+            if (syntaxElement->getType() != SyntaxTree::Syntax::SyntaxElementType::TokenListType) {
+                throw new SyntaxTree::Token::UnknownToken;
+            }
+            auto ruleListSyntax = syntaxElement->getListElements();
+            for (auto it = ruleListSyntax->begin(); it != ruleListSyntax->end(); it++) {
+                auto nestedRule = *it;
+                this->renderRuleRecord(buffer, nestedRule->getElement(), numberOfRecord);
+            }
+        }
+        if (strcmp(rule->getName(), "rule") == 0) {
+            if (syntaxElement->getType() != SyntaxTree::Syntax::SyntaxElementType::TokenListType) {
+                throw new SyntaxTree::Token::UnknownToken;
+            }
+            auto ruleListSyntax = syntaxElement->getListElements();
+            auto it = ruleListSyntax->begin(); // type
+            auto tokenType = (*it)->getToken();
+            auto reader = (IOBuffer::IOMemoryBuffer*) tokenType->getReader();
+            reader->setPosition(0);
+            char* strType = (char*) malloc(sizeof(char) * 2);
+            memset(strType, 0, sizeof(char) * 2);
+            reader->read(strType, 1);
+            it++; // : - double dot token
+            it++; // name of rule
+            auto tokenName = (*it)->getToken();
+            reader = (IOBuffer::IOMemoryBuffer*) tokenType->getReader();
+            reader->setPosition(0);
+            char* strName = (char*) malloc(sizeof(char) * 64);
+            memset(strName, 0, sizeof(char) * 64);
+            reader->read(strName, 63);
+
+            char* strInnerRule = (char*) malloc(sizeof(char) * 1024);
+            memset(strInnerRule, 0, sizeof(char) * 1024);
+
+            if (strcmp(strType, "s") == 0) {
+                sprintf(strInnerRule, "\"%s\"", strName);
+            }
+            if (strcmp(strType, "t") == 0) {
+                if (std::next(it) != ruleListSyntax->end()) {
+                    it++; // ( - token
+                    it++; // match token value
+                    auto matchValueToken = (*it)->getToken();
+                    reader = (IOBuffer::IOMemoryBuffer*) matchValueToken->getReader();
+                    reader->setPosition(0);
+                    char* strValue = (char*) malloc(sizeof(char) * 64);
+                    memset(strValue, 0, sizeof(char) * 64);
+                    reader->read(strValue, 63);
+                    it++; // ) - token
+                    sprintf(strInnerRule, "this->tokenMap->getType(\"%s\"), \"%s\"", strName, strValue);
+                } else {
+                    sprintf(strInnerRule, "this->tokenMap->getType(\"%s\")", strName);
+                }
+            }
+
+            // make final record
+            char* strRuleRecord = (char*) malloc(sizeof(char) * 1024);
+            memset(strRuleRecord, 0, sizeof(char) * 1024);
+            sprintf(strRuleRecord, "rule%02d->addMatch(new RuleMatch(%s));", numberOfRecord, strInnerRule);
+
+            std::cout << strRuleRecord << std::endl;
+        }
+        std::cout << std::endl;
     }
 }
