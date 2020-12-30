@@ -10,7 +10,13 @@ int main(int argc, char** argv) {
         return 0;
     }
 
-    IOBuffer::IOFileReader reader(argv[1]);
+    if (config.getSyntaxFile() == nullptr) {
+        std::cout << "Not set syntax file" << std::endl;
+        std::cout << config.getHelpText() << std::endl;
+        return -1;
+    }
+
+    IOBuffer::IOFileReader reader(config.getSyntaxFile());
     IOBuffer::CharStream charStream(&reader);
     SyntaxTree::Lexer lexer(&charStream);
     auto tokenList = new std::list<SyntaxTree::Token::Token*>;
