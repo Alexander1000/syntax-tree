@@ -7,6 +7,7 @@ namespace SyntaxTree::Render
 {
     Render::Render()
     {
+        this->lastNumberOfRecord = 0;
     }
 
     void Render::renderTree(IOBuffer::IOBuffer *buffer, SyntaxTree::Syntax::SyntaxElement *tree)
@@ -44,7 +45,8 @@ namespace SyntaxTree::Render
                 throw new SyntaxTree::Token::UnknownToken;
             }
 
-            this->renderRecord(buffer, tokenNameElement->getToken(), rulesTree, 0);
+            this->renderRecord(buffer, tokenNameElement->getToken(), rulesTree, this->lastNumberOfRecord++);
+            std::cout << std::endl;
             return;
         }
     }
@@ -162,6 +164,5 @@ namespace SyntaxTree::Render
 
             std::cout << strRuleRecord << std::endl;
         }
-        std::cout << std::endl;
     }
 }
