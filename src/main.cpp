@@ -16,7 +16,20 @@ int main(int argc, char** argv) {
     auto tree = new SyntaxTree::Syntax::Tree;
     auto syntaxTree = tree->parse(tokenList);
     auto render = new SyntaxTree::Render::Render;
-    auto buffer = new IOBuffer::IOMemoryBuffer(4096);
-    render->renderTree(buffer, syntaxTree);
+    auto output = new IOBuffer::IOMemoryBuffer(4096);
+    render->renderTree(output, syntaxTree);
+
+    int nRead;
+    char* buffer = (char*) malloc(sizeof(char) * 1024);
+    do {
+        memset(buffer, 0, sizeof(char) * 1024);
+        nRead = output->read(buffer, 1023);
+        if (nRead > 0) {
+            std::cout << buffer;
+        }
+    } while(nRead != 0);
+
+    std::cout << std::endl;
+    
     return 0;
 }
