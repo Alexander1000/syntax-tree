@@ -10,10 +10,12 @@ namespace SyntaxTree
         bool isHelp();
         const char* getHelpText();
         char* getSyntaxFile();
+        char* getInjectFile();
 
     private:
         bool is_help;
         char* syntaxFile;
+        char* injectFile;
     };
 }
 

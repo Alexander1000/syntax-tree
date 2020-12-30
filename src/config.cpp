@@ -8,6 +8,7 @@ namespace SyntaxTree
         // defaults:
         this->is_help = false;
         this->syntaxFile = nullptr;
+        this->injectFile = nullptr;
 
         // initialize parameters
         for (int i = 1; i < argc; i++) {
@@ -24,6 +25,15 @@ namespace SyntaxTree
                 this->syntaxFile = (char*) malloc(sizeof(char) * (len + 1));
                 memset(this->syntaxFile, 0, sizeof(char) * (len + 1));
                 memcpy(this->syntaxFile, argv[i], len * sizeof(char));
+                continue;
+            }
+
+            if (paramName == "-i" || paramName == "--inject") {
+                i++;
+                int len = strlen(argv[i]);
+                this->injectFile = (char*) malloc(sizeof(char) * (len + 1));
+                memset(this->injectFile, 0, sizeof(char) * (len + 1));
+                memcpy(this->injectFile, argv[i], len * sizeof(char));
                 continue;
             }
         }
@@ -44,5 +54,9 @@ namespace SyntaxTree
 
     char* Config::getSyntaxFile() {
         return this->syntaxFile;
+    }
+
+    char* Config::getInjectFile() {
+        return this->injectFile;
     }
 }
