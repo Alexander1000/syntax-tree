@@ -74,15 +74,20 @@ namespace SyntaxTree::Render
         if (sntxRuleTree->getType() != SyntaxTree::Syntax::SyntaxElementType::TokenListType) {
             throw new SyntaxTree::Token::UnknownToken;
         }
-        auto rulesListElements = sntxRuleTree->getListElements();
+        auto rule = sntxRuleTree->getRule();
+        if (strcmp(rule->getName(), "ruleList") == 0) {
+            auto rulesListElements = sntxRuleTree->getListElements();
 
-        for (auto it = rulesListElements->begin(); it != rulesListElements->end(); it++) {
-            auto sntxRuleElement = *it;
-            if (sntxRuleElement->getType() != SyntaxTree::Syntax::SyntaxElementType::SyntaxType) {
-                throw new SyntaxTree::Token::UnknownToken;
+            for (auto it = rulesListElements->begin(); it != rulesListElements->end(); it++) {
+                auto sntxRuleElement = *it;
+                if (sntxRuleElement->getType() != SyntaxTree::Syntax::SyntaxElementType::SyntaxType) {
+                    throw new SyntaxTree::Token::UnknownToken;
+                }
+                auto ruleElement = sntxRuleElement->getElement();
+                this->renderRuleRecord(buffer, ruleElement, numberOfRecord);
             }
-            auto ruleElement = sntxRuleElement->getElement();
-            this->renderRuleRecord(buffer, ruleElement, numberOfRecord);
+        } else if (strcmp(rule->getName(), "rule") == 0) {
+            this->renderRuleRecord(buffer, sntxRuleTree, numberOfRecord);
         }
 
         char* strAddRuleToList = (char*) malloc(sizeof(char) * 1024);
@@ -104,6 +109,7 @@ namespace SyntaxTree::Render
                 auto nestedRule = *it;
                 this->renderRuleRecord(buffer, nestedRule->getElement(), numberOfRecord);
             }
+            return;
         }
         if (strcmp(rule->getName(), "rule") == 0) {
             if (syntaxElement->getType() != SyntaxTree::Syntax::SyntaxElementType::TokenListType) {
