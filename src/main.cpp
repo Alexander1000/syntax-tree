@@ -4,6 +4,12 @@
 #include <list>
 
 int main(int argc, char** argv) {
+    SyntaxTree::Config config(argc, argv);
+    if (config.isHelp()) {
+        std::cout << config.getHelpText() << std::endl;
+        return 0;
+    }
+
     IOBuffer::IOFileReader reader(argv[1]);
     IOBuffer::CharStream charStream(&reader);
     SyntaxTree::Lexer lexer(&charStream);
