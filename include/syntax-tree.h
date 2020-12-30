@@ -6,5 +6,6 @@
 #include <syntax-tree/position.h>
 #include <syntax-tree/syntax.h>
 #include <syntax-tree/render.h>
+#include <syntax-tree/config.h>
 
 #endif
