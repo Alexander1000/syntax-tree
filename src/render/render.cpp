@@ -120,7 +120,7 @@ namespace SyntaxTree::Render
             it++; // : - double dot token
             it++; // name of rule
             auto tokenName = (*it)->getToken();
-            reader = (IOBuffer::IOMemoryBuffer*) tokenType->getReader();
+            reader = (IOBuffer::IOMemoryBuffer*) tokenName->getReader();
             reader->setPosition(0);
             char* strName = (char*) malloc(sizeof(char) * 64);
             memset(strName, 0, sizeof(char) * 64);
