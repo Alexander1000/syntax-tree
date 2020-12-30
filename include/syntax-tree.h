@@ -7,5 +7,6 @@
 #include <syntax-tree/syntax.h>
 #include <syntax-tree/render.h>
 #include <syntax-tree/config.h>
+#include <syntax-tree/injector.h>
 
 #endif
