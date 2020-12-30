@@ -11,6 +11,9 @@ namespace SyntaxTree
 
     void Injector::inject(IOBuffer::IOBuffer *buffer)
     {
-        
+        char* curSymbol = this->charStream->getNext();
+        while (curSymbol != nullptr) {
+            curSymbol = this->charStream->getNext();
+        }
     }
 }
