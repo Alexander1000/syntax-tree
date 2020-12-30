@@ -67,6 +67,24 @@ namespace SyntaxTree::Render
 
         std::cout << strMatchRule << std::endl;
 
+        if (rulesTree->getType() != SyntaxTree::Syntax::SyntaxElementType::SyntaxType) {
+            throw new SyntaxTree::Token::UnknownToken;
+        }
+        auto sntxRuleTree = rulesTree->getElement();
+        if (sntxRuleTree->getType() != SyntaxTree::Syntax::SyntaxElementType::TokenListType) {
+            throw new SyntaxTree::Token::UnknownToken;
+        }
+        auto rulesListElements = sntxRuleTree->getListElements();
+
+        for (auto it = rulesListElements->begin(); it != rulesListElements->end(); it++) {
+            auto sntxRuleElement = *it;
+            if (sntxRuleElement->getType() != SyntaxTree::Syntax::SyntaxElementType::SyntaxType) {
+                throw new SyntaxTree::Token::UnknownToken;
+            }
+            auto ruleElement = sntxRuleElement->getElement();
+            std::cout << std::endl;
+        }
+
         char* strAddRuleToList = (char*) malloc(sizeof(char) * 1024);
         memset(strAddRuleToList, 0, sizeof(char) * 1024);
         sprintf(strAddRuleToList, "this->rules->push_back(rule%02d);", numberOfRecord);
