@@ -37,6 +37,8 @@ int main(int argc, char** argv) {
     auto output = new IOBuffer::IOMemoryBuffer(4096);
     render->renderTree(output, syntaxTree);
 
+    SyntaxTree::Injector(config.getInjectFile());
+
     int nRead;
     char* buffer = (char*) malloc(sizeof(char) * 1024);
     do {
