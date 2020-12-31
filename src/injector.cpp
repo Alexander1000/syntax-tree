@@ -36,7 +36,9 @@ namespace SyntaxTree
                     memset(strBuffer, 0, sizeof(char) * 1025);
                     nRead = buffer->read(strBuffer, 1024);
                     while (nRead > 0) {
-                        ioWriter->write(strBuffer, nRead);
+                        const char* strIntended = this->injectIndent(strBuffer, 8);
+                        ioWriter->write((char*) strIntended, strlen(strIntended));
+                        std::free((char*) strIntended);
                         memset(strBuffer, 0, sizeof(char) * 1025);
                         nRead = buffer->read(strBuffer, 1024);
                     }
@@ -92,5 +94,42 @@ namespace SyntaxTree
         } while(false);
 
         std::cout << std::endl;
+    }
+
+    const char* Injector::injectIndent(const char* src, int size)
+    {
+        int strSize = strlen(src) + 32;
+        char* dst = (char*) malloc(sizeof(char) * strSize);
+        memset(dst, 0, sizeof(char) * strSize);
+        int lastStartCopyPos = 0;
+        int writePos = 0;
+        for (int i = 0; i < strlen(src); i++) {
+            if (src[i] == '\n') {
+                i++;
+                if (strlen(src) < i) {
+                    if (writePos + (i - lastStartCopyPos) + size >= strSize) {
+                        strSize += 128;
+                        dst = (char*) realloc(dst, sizeof(char) * strSize);
+                    }
+
+                    memcpy(dst + writePos, src + lastStartCopyPos, sizeof(char) * (i - lastStartCopyPos));
+                    writePos += (i - lastStartCopyPos);
+                    lastStartCopyPos = i;
+                    memset(dst + writePos, 0x20, size * sizeof(char));
+                    writePos += size;
+                }
+            }
+        }
+
+        if (strlen(src) > lastStartCopyPos) {
+            if (writePos + (strlen(src) - lastStartCopyPos) >= strSize) {
+                strSize += 128;
+                dst = (char*) realloc(dst, sizeof(char) * strSize);
+            }
+
+            memcpy(dst + writePos, src + lastStartCopyPos, sizeof(char) * (strlen(src) - lastStartCopyPos));
+        }
+
+        return dst;
     }
 }

@@ -13,6 +13,8 @@ namespace SyntaxTree
 
     private:
         IOBuffer::CharStream* charStream;
+
+        const char* injectIndent(const char* src, int size);
     };
 }
 
