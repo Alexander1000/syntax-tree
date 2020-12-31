@@ -12,92 +12,70 @@ namespace SyntaxTree::Syntax
     void Tree::initializeDefaults()
     {
         // @syntax-tree: start-autogenerate
-        // do make syntax tree rules
 
-        // rule [t:type(s) t:doubleDot t:name t:openBrace t:matchValue t:closeBrace]
-//        auto rule1 = new Rule("rule");
-//        rule1->addMatch(new RuleMatch(this->tokenMap->getType("type"), "s"));
-//        rule1->addMatch(new RuleMatch(this->tokenMap->getType("doubleDot")));
-//        rule1->addMatch(new RuleMatch(this->tokenMap->getType("name")));
-//        rule1->addMatch(new RuleMatch(this->tokenMap->getType("openBrace")));
-//        rule1->addMatch(new RuleMatch(this->tokenMap->getType("matchValue")));
-//        rule1->addMatch(new RuleMatch(this->tokenMap->getType("closeBrace")));
-//        this->rules->push_back(rule1);
+        auto rule00 = new SyntaxTree::Syntax::Rule("rule");
+        rule00->addMatch(new RuleMatch(this->tokenMap->getType("type"), "t"));
+        rule00->addMatch(new RuleMatch(this->tokenMap->getType("doubleDot")));
+        rule00->addMatch(new RuleMatch(this->tokenMap->getType("name")));
+        rule00->addMatch(new RuleMatch(this->tokenMap->getType("openBrace")));
+        rule00->addMatch(new RuleMatch(this->tokenMap->getType("matchValue")));
+        rule00->addMatch(new RuleMatch(this->tokenMap->getType("closeBrace")));
+        this->rules->push_back(rule00);
 
-        // rule [t:type(t) t:doubleDot t:name t:openBrace t:matchValue t:closeBrace]
-        auto rule2 = new Rule("rule");
-        rule2->addMatch(new RuleMatch(this->tokenMap->getType("type"), "t"));
-        rule2->addMatch(new RuleMatch(this->tokenMap->getType("doubleDot")));
-        rule2->addMatch(new RuleMatch(this->tokenMap->getType("name")));
-        rule2->addMatch(new RuleMatch(this->tokenMap->getType("openBrace")));
-        rule2->addMatch(new RuleMatch(this->tokenMap->getType("matchValue")));
-        rule2->addMatch(new RuleMatch(this->tokenMap->getType("closeBrace")));
-        this->rules->push_back(rule2);
+        auto rule01 = new SyntaxTree::Syntax::Rule("rule");
+        rule01->addMatch(new RuleMatch(this->tokenMap->getType("type"), "s"));
+        rule01->addMatch(new RuleMatch(this->tokenMap->getType("doubleDot")));
+        rule01->addMatch(new RuleMatch(this->tokenMap->getType("name")));
+        this->rules->push_back(rule01);
 
-        // rule [t:type(s) t:doubleDot t:name]
-        auto rule3 = new Rule("rule");
-        rule3->addMatch(new RuleMatch(this->tokenMap->getType("type"), "s"));
-        rule3->addMatch(new RuleMatch(this->tokenMap->getType("doubleDot")));
-        rule3->addMatch(new RuleMatch(this->tokenMap->getType("name")));
-        this->rules->push_back(rule3);
+        auto rule02 = new SyntaxTree::Syntax::Rule("rule");
+        rule02->addMatch(new RuleMatch(this->tokenMap->getType("type"), "t"));
+        rule02->addMatch(new RuleMatch(this->tokenMap->getType("doubleDot")));
+        rule02->addMatch(new RuleMatch(this->tokenMap->getType("name")));
+        this->rules->push_back(rule02);
 
-        // rule [t:type(t) t:doubleDot t:name]
-        auto rule4 = new Rule("rule");
-        rule4->addMatch(new RuleMatch(this->tokenMap->getType("type"), "t"));
-        rule4->addMatch(new RuleMatch(this->tokenMap->getType("doubleDot")));
-        rule4->addMatch(new RuleMatch(this->tokenMap->getType("name")));
-        this->rules->push_back(rule4);
+        auto rule03 = new SyntaxTree::Syntax::Rule("ruleList");
+        rule03->addMatch(new RuleMatch("rule"));
+        rule03->addMatch(new RuleMatch("rule"));
+        this->rules->push_back(rule03);
 
-        // ruleList [s:rule s:rule]
-        auto rule5 = new Rule("ruleList");
-        rule5->addMatch(new RuleMatch("rule"));
-        rule5->addMatch(new RuleMatch("rule"));
-        this->rules->push_back(rule5);
+        auto rule04 = new SyntaxTree::Syntax::Rule("ruleList");
+        rule04->addMatch(new RuleMatch("ruleList"));
+        rule04->addMatch(new RuleMatch("rule"));
+        this->rules->push_back(rule04);
 
-        // ruleList [s:ruleList s:rule]
-        auto rule6 = new Rule("ruleList");
-        rule6->addMatch(new RuleMatch("ruleList"));
-        rule6->addMatch(new RuleMatch("rule"));
-        this->rules->push_back(rule6);
+        auto rule05 = new SyntaxTree::Syntax::Rule("ruleList");
+        rule05->addMatch(new RuleMatch("ruleList"));
+        rule05->addMatch(new RuleMatch("ruleList"));
+        this->rules->push_back(rule05);
 
-        // ruleList [s:ruleList s:ruleList]
-        auto rule61 = new Rule("ruleList");
-        rule61->addMatch(new RuleMatch("ruleList"));
-        rule61->addMatch(new RuleMatch("ruleList"));
-        this->rules->push_back(rule61);
+        auto rule06 = new SyntaxTree::Syntax::Rule("record");
+        rule06->addMatch(new RuleMatch(this->tokenMap->getType("name")));
+        rule06->addMatch(new RuleMatch(this->tokenMap->getType("open")));
+        rule06->addMatch(new RuleMatch("rule"));
+        rule06->addMatch(new RuleMatch(this->tokenMap->getType("close")));
+        this->rules->push_back(rule06);
 
-        // record [t:name t:open s:rule t:close]
-        auto rule7 = new Rule("record");
-        rule7->addMatch(new RuleMatch(this->tokenMap->getType("name")));
-        rule7->addMatch(new RuleMatch(this->tokenMap->getType("open")));
-        rule7->addMatch(new RuleMatch("rule"));
-        rule7->addMatch(new RuleMatch(this->tokenMap->getType("close")));
-        this->rules->push_back(rule7);
+        auto rule07 = new SyntaxTree::Syntax::Rule("record");
+        rule07->addMatch(new RuleMatch(this->tokenMap->getType("name")));
+        rule07->addMatch(new RuleMatch(this->tokenMap->getType("open")));
+        rule07->addMatch(new RuleMatch("ruleList"));
+        rule07->addMatch(new RuleMatch(this->tokenMap->getType("close")));
+        this->rules->push_back(rule07);
 
-        // record [t:name t:open s:ruleList t:close]
-        auto rule8 = new Rule("record");
-        rule8->addMatch(new RuleMatch(this->tokenMap->getType("name")));
-        rule8->addMatch(new RuleMatch(this->tokenMap->getType("open")));
-        rule8->addMatch(new RuleMatch("ruleList"));
-        rule8->addMatch(new RuleMatch(this->tokenMap->getType("close")));
-        this->rules->push_back(rule8);
+        auto rule08 = new SyntaxTree::Syntax::Rule("tree");
+        rule08->addMatch(new RuleMatch("record"));
+        rule08->addMatch(new RuleMatch("record"));
+        this->rules->push_back(rule08);
 
-        // tree [s:record s:record]
-        auto rule9 = new Rule("tree");
-        rule9->addMatch(new RuleMatch("record"));
-        rule9->addMatch(new RuleMatch("record"));
-        this->rules->push_back(rule9);
+        auto rule09 = new SyntaxTree::Syntax::Rule("tree");
+        rule09->addMatch(new RuleMatch("record"));
+        this->rules->push_back(rule09);
 
-        // tree [s:record]
-        auto rule10 = new Rule("tree");
-        rule10->addMatch(new RuleMatch("record"));
+        auto rule10 = new SyntaxTree::Syntax::Rule("tree");
+        rule10->addMatch(new RuleMatch("tree"));
+        rule10->addMatch(new RuleMatch("tree"));
         this->rules->push_back(rule10);
-
-        // tree [s:tree s:tree]
-        auto rule11 = new Rule("tree");
-        rule11->addMatch(new RuleMatch("tree"));
-        rule11->addMatch(new RuleMatch("tree"));
-        this->rules->push_back(rule11);
 
         // @syntax-tree: stop-autogenerate
     }

@@ -17,6 +17,7 @@ namespace SyntaxTree
         char* curSymbol = this->charStream->getNext();
         while (curSymbol != nullptr) {
             if (*curSymbol == '@') {
+                ioWriter->write(curSymbol, 1);
                 int tagLength = 0;
                 auto ioTagReader = new IOBuffer::IOMemoryBuffer(64);
                 while (curSymbol != nullptr && *curSymbol != '\n') {
@@ -90,6 +91,8 @@ namespace SyntaxTree
             curSymbol = this->charStream->getNext();
         }
 
+        auto fileWriter = new IOBuffer::IOFileWriter(this->injectFile, "w+");
+
         do {
             int nRead;
             char *tbuffer = (char *) malloc(sizeof(char) * 1024);
@@ -97,12 +100,10 @@ namespace SyntaxTree
                 memset(tbuffer, 0, sizeof(char) * 1024);
                 nRead = ioWriter->read(tbuffer, 1023);
                 if (nRead > 0) {
-                    std::cout << tbuffer;
+                    fileWriter->write(tbuffer, strlen(tbuffer));
                 }
             } while (nRead != 0);
         } while(false);
-
-        std::cout << std::endl;
     }
 
     const char* Injector::injectIndent(const char* src, int size)
