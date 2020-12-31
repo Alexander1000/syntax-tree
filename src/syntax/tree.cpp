@@ -9,11 +9,9 @@ namespace SyntaxTree::Syntax
         this->initializeDefaults();
     }
 
-    /**
-     * @syntax-tree: autogenerate
-     */
     void Tree::initializeDefaults()
     {
+        // @syntax-tree: start-autogenerate
         // do make syntax tree rules
 
         // rule [t:type(s) t:doubleDot t:name t:openBrace t:matchValue t:closeBrace]
@@ -100,5 +98,7 @@ namespace SyntaxTree::Syntax
         rule11->addMatch(new RuleMatch("tree"));
         rule11->addMatch(new RuleMatch("tree"));
         this->rules->push_back(rule11);
+
+        // @syntax-tree: stop-autogenerate
     }
 }
