@@ -6,7 +6,8 @@ namespace SyntaxTree
 {
     Injector::Injector(const char *injectFile)
     {
-        auto fileReader = new IOBuffer::IOFileReader(injectFile);
+        this->injectFile = injectFile;
+        auto fileReader = new IOBuffer::IOFileReader(this->injectFile);
         this->charStream = new IOBuffer::CharStream(fileReader);
     }
 

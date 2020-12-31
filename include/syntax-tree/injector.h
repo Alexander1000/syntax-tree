@@ -12,6 +12,7 @@ namespace SyntaxTree
         void inject(IOBuffer::IOBuffer*);
 
     private:
+        const char* injectFile;
         IOBuffer::CharStream* charStream;
 
         const char* injectIndent(const char* src, int size);
