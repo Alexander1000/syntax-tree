@@ -72,6 +72,12 @@ namespace SyntaxTree
         std::string strStopAutogenerateTag = "// @syntax-tree: stop-autogenerate\n";
         ioWriter->write((char*) strStopAutogenerateTag.c_str(), strStopAutogenerateTag.length());
 
+        curSymbol = this->charStream->getNext();
+        while (curSymbol != nullptr) {
+            ioWriter->write(curSymbol, 1);
+            curSymbol = this->charStream->getNext();
+        }
+
         do {
             int nRead;
             char *tbuffer = (char *) malloc(sizeof(char) * 1024);
