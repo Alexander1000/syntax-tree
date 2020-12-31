@@ -48,6 +48,7 @@ namespace SyntaxTree
             curSymbol = this->charStream->getNext();
         }
 
+        // skip while not found (@syntax-tree: stop-autogenerate)
         curSymbol = this->charStream->getNext();
         while (curSymbol != nullptr) {
             if (*curSymbol == '@') {
