@@ -31,12 +31,23 @@ namespace SyntaxTree
 
                 if (strcmp(strTagValue, "@syntax-tree: start-autogenerate") == 0) {
                     // do start
+                    int nRead = 0;
+                    char* strBuffer = (char*) malloc(sizeof(char) * 1025);
+                    memset(strBuffer, 0, sizeof(char) * 1025);
+                    nRead = buffer->read(strBuffer, 1024);
+                    while (nRead > 0) {
+                        ioWriter->write(strBuffer, 1024);
+                        memset(strBuffer, 0, sizeof(char) * 1025);
+                        nRead = buffer->read(strBuffer, 1024);
+                    }
+                    break;
                 }
-                std::cout << strTagValue << std::endl;
             } else {
                 ioWriter->write(curSymbol, 1);
             }
             curSymbol = this->charStream->getNext();
         }
+
+        std::cout << std::endl;
     }
 }
