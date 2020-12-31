@@ -1,5 +1,6 @@
 #include <syntax-tree.h>
 #include <io-buffer.h>
+#include <iostream>
 
 namespace SyntaxTree
 {
@@ -11,8 +12,22 @@ namespace SyntaxTree
 
     void Injector::inject(IOBuffer::IOBuffer *buffer)
     {
+        auto ioWriter = new IOBuffer::IOMemoryBuffer(4096);
         char* curSymbol = this->charStream->getNext();
         while (curSymbol != nullptr) {
+            if (*curSymbol == '@') {
+                int tagLength = 0;
+                auto ioTagReader = new IOBuffer::IOMemoryBuffer(64);
+                while (curSymbol != nullptr && *curSymbol != '\n') {
+                    ioTagReader->write(curSymbol, 1);
+                    curSymbol = this->charStream->getNext();
+                    tagLength++;
+                }
+                char* strTagValue = (char*) malloc(sizeof(char) * (tagLength + 1));
+                memset(strTagValue, 0, sizeof(char) * (tagLength + 1));
+                ioTagReader->read(strTagValue, tagLength);
+                std::cout << strTagValue << std::endl;
+            }
             curSymbol = this->charStream->getNext();
         }
     }

@@ -37,19 +37,8 @@ int main(int argc, char** argv) {
     auto output = new IOBuffer::IOMemoryBuffer(4096);
     render->renderTree(output, syntaxTree);
 
-    SyntaxTree::Injector(config.getInjectFile());
-
-    int nRead;
-    char* buffer = (char*) malloc(sizeof(char) * 1024);
-    do {
-        memset(buffer, 0, sizeof(char) * 1024);
-        nRead = output->read(buffer, 1023);
-        if (nRead > 0) {
-            std::cout << buffer;
-        }
-    } while(nRead != 0);
-
-    std::cout << std::endl;
+    SyntaxTree::Injector injector(config.getInjectFile());
+    injector.inject(output);
 
     return 0;
 }
