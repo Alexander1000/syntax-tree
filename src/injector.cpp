@@ -35,8 +35,16 @@ namespace SyntaxTree
                     char* strBuffer = (char*) malloc(sizeof(char) * 1025);
                     memset(strBuffer, 0, sizeof(char) * 1025);
                     nRead = buffer->read(strBuffer, 1024);
+                    bool startWithIndent = true;
                     while (nRead > 0) {
+                        if (startWithIndent) {
+                            ioWriter->write("        ", 8);
+                            startWithIndent = false;
+                        }
                         const char* strIntended = this->injectIndent(strBuffer, 8);
+                        if (strIntended[strlen(strIntended) - 1] == '\n') {
+                            startWithIndent = true;
+                        }
                         ioWriter->write((char*) strIntended, strlen(strIntended));
                         std::free((char*) strIntended);
                         memset(strBuffer, 0, sizeof(char) * 1025);
@@ -106,7 +114,7 @@ namespace SyntaxTree
         for (int i = 0; i < strlen(src); i++) {
             if (src[i] == '\n') {
                 i++;
-                if (strlen(src) < i) {
+                if (strlen(src) > i) {
                     if (writePos + (i - lastStartCopyPos) + size >= strSize) {
                         strSize += 128;
                         dst = (char*) realloc(dst, sizeof(char) * strSize);
