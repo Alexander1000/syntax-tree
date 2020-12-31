@@ -80,7 +80,7 @@ namespace SyntaxTree
             curSymbol = this->charStream->getNext();
         }
 
-        std::string strStopAutogenerateTag = "// @syntax-tree: stop-autogenerate\n";
+        std::string strStopAutogenerateTag = "        // @syntax-tree: stop-autogenerate\n";
         ioWriter->write((char*) strStopAutogenerateTag.c_str(), strStopAutogenerateTag.length());
 
         curSymbol = this->charStream->getNext();
@@ -113,6 +113,9 @@ namespace SyntaxTree
         int writePos = 0;
         for (int i = 0; i < strlen(src); i++) {
             if (src[i] == '\n') {
+                if (strlen(src) > i + 1 && src[i+1] == '\n') {
+                    continue;
+                }
                 i++;
                 if (strlen(src) > i) {
                     if (writePos + (i - lastStartCopyPos) + size >= strSize) {
@@ -131,8 +134,9 @@ namespace SyntaxTree
 
         if (strlen(src) > lastStartCopyPos) {
             if (writePos + (strlen(src) - lastStartCopyPos) >= strSize) {
-                strSize += 128;
+                strSize = writePos + (strlen(src) - lastStartCopyPos) + 1;
                 dst = (char*) realloc(dst, sizeof(char) * strSize);
+                memset(dst + writePos, 0, sizeof(char) * (strSize - writePos));
             }
 
             memcpy(dst + writePos, src + lastStartCopyPos, sizeof(char) * (strlen(src) - lastStartCopyPos));
