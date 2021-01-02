@@ -52,15 +52,17 @@ target_link_libraries(${PROJECT_NAME}
     ${IO_BUFFER}
 )
 
-set(PUBLIC_HEADERS
-    include/syntax-tree.h
-)
-
 #--------------
 # Static library
 #--------------
 
 project(syntax-tree-lib VERSION 0.0.1 DESCRIPTION "syntax-tree lib")
+
+set(PUBLIC_HEADERS
+    include/syntax-tree-lib.h
+    include/syntax-tree/token.h
+    include/syntax-tree/syntax.h
+)
 
 add_library(${PROJECT_NAME} STATIC ${SYNTAX_TREE_SHARED_SOURCES})
 
