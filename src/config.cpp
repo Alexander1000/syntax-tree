@@ -1,5 +1,6 @@
 #include <syntax-tree.h>
 #include <string>
+#include <memory.h>
 
 namespace SyntaxTree
 {
