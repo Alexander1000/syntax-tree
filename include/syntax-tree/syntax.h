@@ -77,12 +77,13 @@ namespace SyntaxTree::Syntax
         Tree();
         SyntaxElement* parse(std::list<SyntaxTree::Token::Token*>*);
 
-    private:
+    protected:
         std::list<Rule*>* rules;
         SyntaxTree::Token::TokenMap* tokenMap;
 
         void initializeDefaults();
 
+    private:
         SyntaxElement* parse(std::list<SyntaxElement*>*);
 
         std::list<SyntaxElement*>* run_rule(Rule*, std::list<SyntaxElement*>*);

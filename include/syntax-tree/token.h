@@ -26,7 +26,7 @@ namespace SyntaxTree::Token
         TokenMap();
         int getType(const char*);
         const char* getName(int);
-    private:
+    protected:
         std::map<std::string, int>* tokenMap;
     };
 

@@ -157,7 +157,7 @@ namespace SyntaxTree::Render
             // make final record
             char* strRuleRecord = (char*) malloc(sizeof(char) * 1024);
             memset(strRuleRecord, 0, sizeof(char) * 1024);
-            sprintf(strRuleRecord, "rule%02d->addMatch(new RuleMatch(%s));\n", numberOfRecord, strInnerRule);
+            sprintf(strRuleRecord, "rule%02d->addMatch(new SyntaxTree::Syntax::RuleMatch(%s));\n", numberOfRecord, strInnerRule);
             buffer->write(strRuleRecord, strlen(strRuleRecord));
         }
     }
