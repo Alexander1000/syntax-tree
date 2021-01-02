@@ -6,7 +6,6 @@ namespace SyntaxTree::Syntax
     Tree::Tree() {
         this->rules = new std::list<Rule*>;
         this->tokenMap = new SyntaxTree::Token::TokenMap;
-        this->initializeDefaults();
     }
 
     void Tree::initializeDefaults()

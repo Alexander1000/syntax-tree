@@ -76,12 +76,11 @@ namespace SyntaxTree::Syntax
     public:
         Tree();
         SyntaxElement* parse(std::list<SyntaxTree::Token::Token*>*);
+        virtual void initializeDefaults();
 
     protected:
         std::list<Rule*>* rules;
         SyntaxTree::Token::TokenMap* tokenMap;
-
-        void initializeDefaults();
 
     private:
         SyntaxElement* parse(std::list<SyntaxElement*>*);

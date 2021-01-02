@@ -32,6 +32,7 @@ int main(int argc, char** argv) {
         token = lexer.getNextToken();
     }
     auto tree = new SyntaxTree::Syntax::Tree;
+    tree->initializeDefaults();
     auto syntaxTree = tree->parse(tokenList);
     auto render = new SyntaxTree::Render::Render;
     auto output = new IOBuffer::IOMemoryBuffer(4096);
