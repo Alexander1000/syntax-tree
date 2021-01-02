@@ -64,6 +64,8 @@ set(PUBLIC_HEADERS
     include/syntax-tree/syntax.h
 )
 
+install(DIRECTORY include/syntax-tree DESTINATION include)
+
 add_library(${PROJECT_NAME} STATIC ${SYNTAX_TREE_SHARED_SOURCES})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
