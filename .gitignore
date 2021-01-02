@@ -9,3 +9,4 @@ syntax-tree.cbp
 Testing
 syntax-tree-lib.cbp
 libsyntax-tree-lib.a
+install_manifest.txt
