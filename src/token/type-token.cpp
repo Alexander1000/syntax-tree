@@ -6,7 +6,7 @@ namespace SyntaxTree::Token
     TypeToken::TypeToken(int line, int column, IOBuffer::IOReader *reader) : Token(line, column, reader) {
     }
 
-    Type TypeToken::getType() {
+    int TypeToken::getType() {
         return Type::TypeType;
     }
 }

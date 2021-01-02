@@ -3,7 +3,7 @@
 namespace SyntaxTree::Token
 {
     TokenMap::TokenMap() {
-        this->tokenMap = new std::map<std::string, Type>;
+        this->tokenMap = new std::map<std::string, int>;
         (*this->tokenMap)["type"] = Type::TypeType;
         (*this->tokenMap)["doubleDot"] = Type::DoubleDotType;
         (*this->tokenMap)["name"] = Type::NameType;
@@ -14,7 +14,7 @@ namespace SyntaxTree::Token
         (*this->tokenMap)["close"] = Type::CloseType;
     }
 
-    Type TokenMap::getType(const char *typeName) {
+    int TokenMap::getType(const char *typeName) {
         if (this->tokenMap->find(typeName) != this->tokenMap->end()) {
             return this->tokenMap->at(typeName);
         }
@@ -22,7 +22,7 @@ namespace SyntaxTree::Token
         throw new UnknownToken;
     }
 
-    const char* TokenMap::getName(Type type) {
+    const char* TokenMap::getName(int type) {
         const char* tokenName = nullptr;
         for (auto it = this->tokenMap->begin(); it != this->tokenMap->end(); it++) {
             if (it->second == type) {

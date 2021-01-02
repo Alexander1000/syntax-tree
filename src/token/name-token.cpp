@@ -6,7 +6,7 @@ namespace SyntaxTree::Token
     NameToken::NameToken(int line, int column, IOBuffer::IOReader *reader) : Token(line, column, reader) {
     }
 
-    Type NameToken::getType() {
+    int NameToken::getType() {
         return Type::NameType;
     }
 }

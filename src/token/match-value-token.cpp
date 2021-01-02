@@ -6,7 +6,7 @@ namespace SyntaxTree::Token
     MatchValueToken::MatchValueToken(int line, int column, IOBuffer::IOReader *reader) : Token(line, column, reader) {
     }
 
-    Type MatchValueToken::getType() {
+    int MatchValueToken::getType() {
         return Type::MatchValueType;
     }
 }
