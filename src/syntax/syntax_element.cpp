@@ -22,11 +22,11 @@ namespace SyntaxTree::Syntax
         return this->type;
     }
 
-    SyntaxTree::Token::Token * SyntaxElement::getToken() {
+    SyntaxTree::Token::Token* SyntaxElement::getToken() {
         return this->data.token;
     }
 
-    SyntaxElement * SyntaxElement::getElement() {
+    SyntaxElement* SyntaxElement::getElement() {
         return this->data.syntaxElement;
     }
 
