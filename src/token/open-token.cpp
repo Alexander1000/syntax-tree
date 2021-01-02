@@ -6,7 +6,7 @@ namespace SyntaxTree::Token
     {
     }
 
-    Type OpenToken::getType() {
+    int OpenToken::getType() {
         return Type::OpenType;
     }
 }

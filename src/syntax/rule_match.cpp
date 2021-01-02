@@ -9,21 +9,21 @@ namespace SyntaxTree::Syntax
         this->tokenValue = nullptr;
     }
 
-    RuleMatch::RuleMatch(SyntaxTree::Token::Type tokenType)
+    RuleMatch::RuleMatch(int tokenType)
     {
         this->value.tokenType = tokenType;
         this->type = RuleMatchType::RuleMatchTokenType;
         this->tokenValue = nullptr;
     }
 
-    RuleMatch::RuleMatch(SyntaxTree::Token::Type tokenType, const char* value)
+    RuleMatch::RuleMatch(int tokenType, const char* value)
     {
         this->value.tokenType = tokenType;
         this->type = RuleMatchType::RuleMatchTokenType;
         this->tokenValue = value;
     }
 
-    const char * RuleMatch::getValue() {
+    const char* RuleMatch::getValue() {
         return this->tokenValue;
     }
 
@@ -31,11 +31,11 @@ namespace SyntaxTree::Syntax
         return this->type;
     }
 
-    SyntaxTree::Token::Type RuleMatch::getTokenType() {
+    int RuleMatch::getTokenType() {
         return this->value.tokenType;
     }
 
-    const char * RuleMatch::getRuleName() {
+    const char* RuleMatch::getRuleName() {
         return this->value.ruleName;
     }
 }

@@ -20,17 +20,17 @@ namespace SyntaxTree::Syntax
     class RuleMatch
     {
     public:
-        explicit RuleMatch(SyntaxTree::Token::Type);
-        explicit RuleMatch(SyntaxTree::Token::Type, const char*);
+        explicit RuleMatch(int);
+        explicit RuleMatch(int, const char*);
         explicit RuleMatch(const char*);
         RuleMatchType getType();
-        SyntaxTree::Token::Type getTokenType();
+        int getTokenType();
         const char* getRuleName();
         const char* getValue();
     private:
         RuleMatchType type;
         union {
-            SyntaxTree::Token::Type tokenType;
+            int tokenType;
             const char* ruleName;
         } value;
         const char* tokenValue;

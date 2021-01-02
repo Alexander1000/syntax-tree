@@ -6,7 +6,7 @@ namespace SyntaxTree::Token
     {
     }
 
-    Type CloseToken::getType() {
+    int CloseToken::getType() {
         return Type::CloseType;
     }
 }

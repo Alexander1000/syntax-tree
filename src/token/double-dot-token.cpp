@@ -6,7 +6,7 @@ namespace SyntaxTree::Token
     {
     }
 
-    Type DoubleDotToken::getType() {
+    int DoubleDotToken::getType() {
         return Type::DoubleDotType;
     }
 }

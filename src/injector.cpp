@@ -121,7 +121,7 @@ namespace SyntaxTree
                 i++;
                 if (strlen(src) > i) {
                     if (writePos + (i - lastStartCopyPos) + size >= strSize) {
-                        strSize += 128;
+                        strSize = writePos + (i - lastStartCopyPos) + size + 1;
                         dst = (char*) realloc(dst, sizeof(char) * strSize);
                     }
 

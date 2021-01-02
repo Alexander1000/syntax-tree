@@ -51,3 +51,33 @@ add_executable(
 target_link_libraries(${PROJECT_NAME}
     ${IO_BUFFER}
 )
+
+set(PUBLIC_HEADERS
+    include/syntax-tree.h
+)
+
+#--------------
+# Static library
+#--------------
+
+project(syntax-tree-lib VERSION 0.0.1 DESCRIPTION "syntax-tree lib")
+
+add_library(${PROJECT_NAME} STATIC ${SYNTAX_TREE_SHARED_SOURCES})
+
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
+set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION 1)
+set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER ${PUBLIC_HEADERS})
+set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "syntax-tree-lib")
+set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS -fPIC)
+
+target_include_directories(${PROJECT_NAME} PUBLIC include)
+target_include_directories(${PROJECT_NAME} PRIVATE src)
+
+install(FILES ${PUBLIC_HEADERS} DESTINATION include)
+
+install (TARGETS ${PROJECT_NAME}
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    PUBLIC_HEADER DESTINATION include
+    COMPONENT library
+)

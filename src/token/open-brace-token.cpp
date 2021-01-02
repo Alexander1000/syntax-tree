@@ -6,7 +6,7 @@ namespace SyntaxTree::Token
     {
     }
 
-    Type OpenBraceToken::getType() {
+    int OpenBraceToken::getType() {
         return Type::OpenBraceType;
     }
 }
