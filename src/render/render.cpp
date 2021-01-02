@@ -1,7 +1,7 @@
 #include <syntax-tree.h>
 #include <io-buffer.h>
 #include <list>
-#include <iostream>
+#include <cstring>
 
 namespace SyntaxTree::Render
 {

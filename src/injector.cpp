@@ -1,6 +1,6 @@
 #include <syntax-tree.h>
 #include <io-buffer.h>
-#include <iostream>
+#include <cstring>
 
 namespace SyntaxTree
 {

@@ -1,4 +1,6 @@
 #include <syntax-tree.h>
+#include <list>
+#include <cstring>
 
 namespace SyntaxTree::Syntax
 {
