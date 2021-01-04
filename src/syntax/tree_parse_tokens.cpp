@@ -22,9 +22,14 @@ namespace SyntaxTree::Syntax
             return *elements->begin();
         }
 
+        int sizeElements;
+
         for (auto it = this->rules->begin(); it != this->rules->end(); it++) {
             Rule* rule = *it;
-            elements = this->run_rule(rule, elements);
+            do {
+                sizeElements = elements->size();
+                elements = this->run_rule(rule, elements);
+            } while (sizeElements != elements->size());
         }
 
         return this->parse(elements);
