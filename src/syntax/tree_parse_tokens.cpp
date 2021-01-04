@@ -1,6 +1,7 @@
 #include <syntax-tree.h>
 #include <list>
 #include <cstring>
+#include <iostream>
 
 namespace SyntaxTree::Syntax
 {
@@ -25,11 +26,17 @@ namespace SyntaxTree::Syntax
         int sizeElements;
 
         for (auto it = this->rules->begin(); it != this->rules->end(); it++) {
-            Rule* rule = *it;
-            do {
-                sizeElements = elements->size();
-                elements = this->run_rule(rule, elements);
-            } while (sizeElements != elements->size());
+            bool breakRule = false;
+            for (auto itn = this->rules->begin(); itn != this->rules->end() && !breakRule; itn++) {
+                if (!breakRule && itn == it) {
+                    breakRule = true;
+                }
+                Rule *rule = *itn;
+                do {
+                    sizeElements = elements->size();
+                    elements = this->run_rule(rule, elements);
+                } while (sizeElements != elements->size());
+            }
         }
 
         return this->parse(elements);
@@ -119,6 +126,7 @@ namespace SyntaxTree::Syntax
             }
         }
 
+        delete elements;
         return filteredElements;
     }
 }
