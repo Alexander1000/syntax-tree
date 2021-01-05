@@ -82,9 +82,8 @@ namespace SyntaxTree::Syntax
         std::list<Rule*>* rules;
         SyntaxTree::Token::TokenMap* tokenMap;
 
-    private:
+        virtual SyntaxElement* beforeParse(std::list<SyntaxElement*>*);
         SyntaxElement* parse(std::list<SyntaxElement*>*);
-
         std::list<SyntaxElement*>* run_rule(Rule*, std::list<SyntaxElement*>*);
     };
 }

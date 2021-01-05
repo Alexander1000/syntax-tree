@@ -11,32 +11,27 @@ namespace SyntaxTree::Syntax
         for (auto it = tokens->begin(); it != tokens->end(); it++) {
             syntaxElements->push_back(new SyntaxElement(*it));
         }
-        return this->parse(syntaxElements);
+        return this->beforeParse(syntaxElements);
     }
 
-    SyntaxElement* Tree::parse(std::list<SyntaxElement*>* elements) {
-        int count = 0;
-        for (auto it = elements->begin(); it != elements->end(); it++) {
-            count++;
-        }
-        if (count == 1) {
+    SyntaxElement* Tree::beforeParse(std::list<SyntaxElement *> *elements) {
+        return this->parse(elements);
+    }
+
+    SyntaxElement* Tree::parse(std::list<SyntaxElement*>* elements)
+    {
+        if (elements->size() == 1) {
             return *elements->begin();
         }
 
         int sizeElements;
 
         for (auto it = this->rules->begin(); it != this->rules->end(); it++) {
-            bool breakRule = false;
-            for (auto itn = this->rules->begin(); itn != this->rules->end() && !breakRule; itn++) {
-                if (!breakRule && itn == it) {
-                    breakRule = true;
-                }
-                Rule *rule = *itn;
-                do {
-                    sizeElements = elements->size();
-                    elements = this->run_rule(rule, elements);
-                } while (sizeElements != elements->size());
-            }
+            Rule *rule = *it;
+            do {
+                sizeElements = elements->size();
+                elements = this->run_rule(rule, elements);
+            } while (sizeElements != elements->size());
         }
 
         return this->parse(elements);
