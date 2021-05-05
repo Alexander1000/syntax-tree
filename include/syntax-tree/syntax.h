@@ -22,6 +22,7 @@ namespace SyntaxTree::Syntax
     {
     public:
         explicit RuleMatch(int);
+        explicit RuleMatch(int, Quantity*);
         explicit RuleMatch(int, const char*);
         explicit RuleMatch(const char*);
         RuleMatchType getType();
@@ -35,6 +36,7 @@ namespace SyntaxTree::Syntax
             const char* ruleName;
         } value;
         const char* tokenValue;
+        Quantity* quantity;
     };
 
     class Rule
