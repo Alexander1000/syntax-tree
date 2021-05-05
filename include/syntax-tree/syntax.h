@@ -2,6 +2,7 @@
 #define SYNTAX_TREE_SYNTAX_INCLUDE_H
 
 #include <syntax-tree/token.h>
+#include <syntax-tree/quantity.h>
 #include <list>
 
 namespace SyntaxTree::Syntax

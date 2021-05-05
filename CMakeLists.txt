@@ -26,6 +26,7 @@ set(SYNTAX_TREE_SHARED_SOURCES
     src/syntax/syntax_element.cpp
     src/syntax/tree.cpp
     src/syntax/tree_parse_tokens.cpp
+    src/syntax/quantity.cpp
     src/render/render.cpp
     src/config.cpp
     src/injector.cpp
