@@ -4,6 +4,7 @@
 
 rule [t:type(t) t:doubleDot t:name t:openBrace t:matchValue t:closeBrace]
 rule [t:type(s) t:doubleDot t:name]
+rule [t:type(t) t:doubleDot t:name t:quantifier]
 rule [t:type(t) t:doubleDot t:name]
 ruleList [s:rule s:rule]
 ruleList [s:ruleList s:rule]
