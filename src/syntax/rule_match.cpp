@@ -10,6 +10,14 @@ namespace SyntaxTree::Syntax
         this->quantity = nullptr;
     }
 
+    RuleMatch::RuleMatch(const char *ruleName, Quantity* quantity)
+    {
+        this->value.ruleName = ruleName;
+        this->type = RuleMatchType::RuleMatchName;
+        this->tokenValue = nullptr;
+        this->quantity = quantity;
+    }
+
     RuleMatch::RuleMatch(int tokenType)
     {
         this->value.tokenType = tokenType;

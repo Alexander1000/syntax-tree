@@ -25,6 +25,7 @@ namespace SyntaxTree::Syntax
         explicit RuleMatch(int, Quantity*);
         explicit RuleMatch(int, const char*);
         explicit RuleMatch(const char*);
+        explicit RuleMatch(const char*, Quantity*);
         RuleMatchType getType();
         int getTokenType();
         const char* getRuleName();
