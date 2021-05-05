@@ -84,6 +84,13 @@ namespace SyntaxTree
                         return token;
                     }
 
+                    if (*curSymbol == '+' || *curSymbol == '*') {
+                        ioWriter = new IOBuffer::IOMemoryBuffer(2);
+                        ioWriter->write(curSymbol, 1);
+                        this->mode = Mode::InnerMode;
+                        return new Token::QuantifierToken(this->position->getLine(), this->position->getColumn(), ioWriter);
+                    }
+
                     if (*curSymbol == '(') {
                         this->mode = Mode::RuleArgsMode;
                         token = new Token::OpenBraceToken(this->position->getLine(), this->position->getColumn());
@@ -98,6 +105,10 @@ namespace SyntaxTree
                     this->pushStackChar(curSymbol);
                     // token name rule
                     token = new Token::NameToken(this->position->getLine(), this->position->getColumn(), ioWriter);
+
+                    if (curSymbol != nullptr && (*curSymbol == '+' || *curSymbol == '*')) {
+                        return token;
+                    }
 
                     if (curSymbol != nullptr && (*curSymbol == 0x20 || *curSymbol == ']')) {
                         this->mode = Mode::InnerMode;
