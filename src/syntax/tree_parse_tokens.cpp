@@ -66,6 +66,19 @@ namespace SyntaxTree::Syntax
                 } else {
                     switch (quantity->getType()) {
                         case QuantityType::OneOrMoreMatchType: {
+                            int count = 0;
+                            while (Tree::check_match_rule(*itCopy, itMatch)) {
+                                ruleMatches->push_back(*itCopy);
+                                itCopy++;
+                                count++;
+                                if (itCopy == elements->end()) {
+                                    itCopy--;
+                                    break;
+                                }
+                            }
+                            if (count == 0) {
+                                foundMatchRule = false;
+                            }
                             break;
                         }
                         default: {
