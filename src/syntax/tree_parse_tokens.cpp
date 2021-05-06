@@ -74,10 +74,13 @@ namespace SyntaxTree::Syntax
                                     break;
                                 }
                             }
-                            itCopy--;
+
                             if (count == 0) {
                                 foundMatchRule = false;
+                            } else {
+                                itCopy--;
                             }
+
                             break;
                         }
                         default: {
