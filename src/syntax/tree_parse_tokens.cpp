@@ -54,11 +54,25 @@ namespace SyntaxTree::Syntax
                     break;
                 }
 
-                if (Tree::check_match_rule(*itCopy, itMatch)) {
-                    ruleMatches->push_back(*itCopy);
+                auto quantity = itMatch->getQuantity();
+
+                if (quantity == nullptr) {
+                    if (Tree::check_match_rule(*itCopy, itMatch)) {
+                        ruleMatches->push_back(*itCopy);
+                    } else {
+                        foundMatchRule = false;
+                        break;
+                    }
                 } else {
-                    foundMatchRule = false;
-                    break;
+                    switch (quantity->getType()) {
+                        case QuantityType::OneOrMoreMatchType: {
+                            break;
+                        }
+                        default: {
+                            // not supported yet
+                            throw std::exception();
+                        }
+                    }
                 }
 
                 itCopy++;

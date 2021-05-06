@@ -4,10 +4,10 @@
 namespace SyntaxTree::Syntax
 {
     enum QuantityType {
-        ZeroOrOneMatchType,
-        OneOrMoreMatchType,
-        AnyMatchType,
-        CustomMatchType,
+        ZeroOrOneMatchType, // ?
+        OneOrMoreMatchType, // +
+        AnyMatchType,       // *
+        CustomMatchType,    // {n, m}
     };
 
     class Quantity {

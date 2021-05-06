@@ -57,4 +57,8 @@ namespace SyntaxTree::Syntax
     const char* RuleMatch::getRuleName() {
         return this->value.ruleName;
     }
+
+    Quantity* RuleMatch::getQuantity() {
+        return this->quantity;
+    }
 }

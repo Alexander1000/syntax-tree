@@ -30,6 +30,7 @@ namespace SyntaxTree::Syntax
         int getTokenType();
         const char* getRuleName();
         const char* getValue();
+        Quantity* getQuantity();
     private:
         RuleMatchType type;
         union {
