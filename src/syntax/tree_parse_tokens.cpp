@@ -114,7 +114,7 @@ namespace SyntaxTree::Syntax
             }
         }
 
-        // delete elements;
+        delete elements;
         return filteredElements;
     }
 
