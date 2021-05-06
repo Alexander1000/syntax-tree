@@ -54,49 +54,9 @@ namespace SyntaxTree::Syntax
                     break;
                 }
 
-                bool success = true;
-
-                switch((*itMatch)->getType()) {
-                    case RuleMatchType::RuleMatchTokenType: {
-                        if ((*itCopy)->getType() == SyntaxElementType::TokenType) {
-                            auto token = (*itCopy)->getToken();
-                            if (token->getType() == (*itMatch)->getTokenType()) {
-                                auto tv = (*itMatch)->getValue();
-                                if (tv != nullptr) {
-                                    char* strValue = (char*) malloc(sizeof(char) * 16);
-                                    memset(strValue, 0, sizeof(char) * 16);
-                                    auto reader = (IOBuffer::IOMemoryBuffer*) token->getReader();
-                                    reader->setPosition(0);
-                                    reader->read(strValue, 15);
-                                    if (strcmp(tv, strValue) == 0) {
-                                        ruleMatches->push_back(*itCopy);
-                                        break;
-                                    }
-                                } else {
-                                    ruleMatches->push_back(*itCopy);
-                                    break;
-                                }
-                            }
-                        }
-                        success = false;
-                        break;
-                    }
-                    case RuleMatchType::RuleMatchName: {
-                        if ((*itCopy)->getType() == SyntaxElementType::SyntaxType) {
-                            auto ruleElement = (*itCopy)->getRule();
-                            if (ruleElement != nullptr) {
-                                if (strcmp(ruleElement->getName(), (*itMatch)->getRuleName()) == 0) {
-                                    ruleMatches->push_back(*itCopy);
-                                    break;
-                                }
-                            }
-                        }
-                        success = false;
-                        break;
-                    }
-                }
-
-                if (!success) {
+                if (this->check_match_rule(*itCopy, *itMatch)) {
+                    ruleMatches->push_back(*itCopy);
+                } else {
                     foundMatchRule = false;
                     break;
                 }
@@ -123,5 +83,45 @@ namespace SyntaxTree::Syntax
 
         delete elements;
         return filteredElements;
+    }
+
+    bool Tree::check_match_rule(SyntaxElement* syntaxElement, RuleMatch* ruleMatch)
+    {
+        switch(ruleMatch->getType()) {
+            case RuleMatchType::RuleMatchTokenType: {
+                if (syntaxElement->getType() == SyntaxElementType::TokenType) {
+                    auto token = syntaxElement->getToken();
+                    if (token->getType() == ruleMatch->getTokenType()) {
+                        auto tv = ruleMatch->getValue();
+                        if (tv != nullptr) {
+                            char* strValue = (char*) malloc(sizeof(char) * 16);
+                            memset(strValue, 0, sizeof(char) * 16);
+                            auto reader = (IOBuffer::IOMemoryBuffer*) token->getReader();
+                            reader->setPosition(0);
+                            reader->read(strValue, 15);
+                            if (strcmp(tv, strValue) == 0) {
+                                return true;
+                            }
+                        } else {
+                            return true;
+                        }
+                    }
+                }
+                break;
+            }
+            case RuleMatchType::RuleMatchName: {
+                if (syntaxElement->getType() == SyntaxElementType::SyntaxType) {
+                    auto ruleElement = syntaxElement->getRule();
+                    if (ruleElement != nullptr) {
+                        if (strcmp(ruleElement->getName(), ruleMatch->getRuleName()) == 0) {
+                            return true;
+                        }
+                    }
+                }
+                break;
+            }
+        }
+
+        return false;
     }
 }
