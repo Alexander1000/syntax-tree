@@ -61,7 +61,6 @@ namespace SyntaxTree::Syntax
                         ruleMatches->push_back(*itCopy);
                     } else {
                         foundMatchRule = false;
-                        break;
                     }
                 } else {
                     switch (quantity->getType()) {
@@ -88,6 +87,10 @@ namespace SyntaxTree::Syntax
                     }
                 }
 
+                if (!foundMatchRule) {
+                    break;
+                }
+
                 itCopy++;
             }
 
@@ -108,7 +111,7 @@ namespace SyntaxTree::Syntax
             }
         }
 
-        delete elements;
+        // delete elements;
         return filteredElements;
     }
 
