@@ -89,7 +89,7 @@ namespace SyntaxTree::Syntax
         virtual SyntaxElement* beforeParse(std::list<SyntaxElement*>*);
         SyntaxElement* parse(std::list<SyntaxElement*>*);
         std::list<SyntaxElement*>* run_rule(Rule*, std::list<SyntaxElement*>*);
-        bool check_match_rule(SyntaxElement*, RuleMatch*);
+        static bool check_match_rule(SyntaxElement*, RuleMatch*);
     };
 }
 

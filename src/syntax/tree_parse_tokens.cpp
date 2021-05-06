@@ -48,13 +48,13 @@ namespace SyntaxTree::Syntax
             auto ruleMatches = new std::list<SyntaxElement*>;
             bool foundMatchRule = true;
 
-            for (auto itMatch = matches->begin(); itMatch != matches->end(); itMatch++) {
+            for (auto & itMatch : *matches) {
                 if (itCopy == elements->end()) {
                     foundMatchRule = false;
                     break;
                 }
 
-                if (this->check_match_rule(*itCopy, *itMatch)) {
+                if (Tree::check_match_rule(*itCopy, itMatch)) {
                     ruleMatches->push_back(*itCopy);
                 } else {
                     foundMatchRule = false;
