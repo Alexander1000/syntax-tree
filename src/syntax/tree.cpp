@@ -41,19 +41,9 @@ namespace SyntaxTree::Syntax
         this->rules->push_back(rule03);
 
         auto rule04 = new SyntaxTree::Syntax::Rule("ruleList");
-        rule04->addMatch(new SyntaxTree::Syntax::RuleMatch("rule"));
-        rule04->addMatch(new SyntaxTree::Syntax::RuleMatch("rule"));
+        auto q01 = new SyntaxTree::Syntax::Quantity(SyntaxTree::Syntax::QuantityType::OneOrMoreMatchType);
+        rule04->addMatch(new SyntaxTree::Syntax::RuleMatch("rule", q01));
         this->rules->push_back(rule04);
-
-        auto rule05 = new SyntaxTree::Syntax::Rule("ruleList");
-        rule05->addMatch(new SyntaxTree::Syntax::RuleMatch("ruleList"));
-        rule05->addMatch(new SyntaxTree::Syntax::RuleMatch("rule"));
-        this->rules->push_back(rule05);
-
-        auto rule06 = new SyntaxTree::Syntax::Rule("ruleList");
-        rule06->addMatch(new SyntaxTree::Syntax::RuleMatch("ruleList"));
-        rule06->addMatch(new SyntaxTree::Syntax::RuleMatch("ruleList"));
-        this->rules->push_back(rule06);
 
         auto rule07 = new SyntaxTree::Syntax::Rule("record");
         rule07->addMatch(new SyntaxTree::Syntax::RuleMatch(this->tokenMap->getType("name")));
