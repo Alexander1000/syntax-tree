@@ -71,10 +71,10 @@ namespace SyntaxTree::Syntax
                                 itCopy++;
                                 count++;
                                 if (itCopy == elements->end()) {
-                                    itCopy--;
                                     break;
                                 }
                             }
+                            itCopy--;
                             if (count == 0) {
                                 foundMatchRule = false;
                             }
