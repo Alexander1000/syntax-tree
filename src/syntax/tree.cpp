@@ -48,8 +48,8 @@ namespace SyntaxTree::Syntax
         this->rules->push_back(rule04);
 
         auto rule05 = new SyntaxTree::Syntax::Rule("ruleList");
-        auto q01 = new SyntaxTree::Syntax::Quantity(SyntaxTree::Syntax::QuantityType::OneOrMoreMatchType);
-        rule05->addMatch(new SyntaxTree::Syntax::RuleMatch("rule", q01));
+        auto q05 = new SyntaxTree::Syntax::Quantity(SyntaxTree::Syntax::QuantityType::OneOrMoreMatchType);
+        rule05->addMatch(new SyntaxTree::Syntax::RuleMatch("rule", q05));
         this->rules->push_back(rule05);
 
         auto rule06 = new SyntaxTree::Syntax::Rule("record");
