@@ -84,7 +84,7 @@ namespace SyntaxTree
                         return token;
                     }
 
-                    if (*curSymbol == '+' || *curSymbol == '*') {
+                    if (*curSymbol == '+' || *curSymbol == '*' || *curSymbol == '?') {
                         ioWriter = new IOBuffer::IOMemoryBuffer(2);
                         ioWriter->write(curSymbol, 1);
                         this->mode = Mode::InnerMode;
@@ -106,7 +106,7 @@ namespace SyntaxTree
                     // token name rule
                     token = new Token::NameToken(this->position->getLine(), this->position->getColumn(), ioWriter);
 
-                    if (curSymbol != nullptr && (*curSymbol == '+' || *curSymbol == '*')) {
+                    if (curSymbol != nullptr && (*curSymbol == '+' || *curSymbol == '*' || *curSymbol == '?')) {
                         return token;
                     }
 
