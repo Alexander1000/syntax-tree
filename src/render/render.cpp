@@ -145,7 +145,7 @@ namespace SyntaxTree::Render
                         strQuantifierRule = (char *) malloc(sizeof(char) * 1024);
                         memset(strQuantifierRule, 0, sizeof(char) * 1024);
                         sprintf(strQuantifierRule, "auto q%02d = new SyntaxTree::Syntax::Quantity(SyntaxTree::Syntax::QuantityType::OneOrMoreMatchType);", numberOfRecord);
-                        sprintf(strInnerRule, "\"%s\", q%02d", strName, numberOfRecord);
+                        sprintf(strInnerRule, R"("%s", q%02d)", strName, numberOfRecord);
                     }
                 }
             }
@@ -163,13 +163,13 @@ namespace SyntaxTree::Render
                         memset(strValue, 0, sizeof(char) * 64);
                         reader->read(strValue, 63);
                         it++; // ) - token
-                        sprintf(strInnerRule, "this->tokenMap->getType(\"%s\"), \"%s\"", strName, strValue);
+                        sprintf(strInnerRule, R"(this->tokenMap->getType("%s"), "%s")", strName, strValue);
                     }
                     if (t->getType() == SyntaxTree::Token::Type::QuantifierType) {
                         strQuantifierRule = (char *) malloc(sizeof(char) * 1024);
                         memset(strQuantifierRule, 0, sizeof(char) * 1024);
                         sprintf(strQuantifierRule, "auto q%02d = new SyntaxTree::Syntax::Quantity(SyntaxTree::Syntax::QuantityType::OneOrMoreMatchType);", numberOfRecord);
-                        sprintf(strInnerRule, "this->tokenMap->getType(\"%s\", q%02d)", strName, numberOfRecord);
+                        sprintf(strInnerRule, R"(this->tokenMap->getType("%s", q%02d))", strName, numberOfRecord);
                     }
                 } else {
                     sprintf(strInnerRule, "this->tokenMap->getType(\"%s\")", strName);
