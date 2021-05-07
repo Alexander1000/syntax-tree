@@ -201,7 +201,7 @@ namespace SyntaxTree::Render
                                 numberOfRecord
                             );
                         }
-                        sprintf(strInnerRule, R"(this->tokenMap->getType("%s", q%02d))", strName, numberOfRecord);
+                        sprintf(strInnerRule, R"(this->tokenMap->getType("%s"), q%02d)", strName, numberOfRecord);
                     }
                 } else {
                     sprintf(strInnerRule, "this->tokenMap->getType(\"%s\")", strName);
