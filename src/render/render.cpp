@@ -144,7 +144,21 @@ namespace SyntaxTree::Render
                     if (t->getType() == SyntaxTree::Token::Type::QuantifierType) {
                         strQuantifierRule = (char *) malloc(sizeof(char) * 1024);
                         memset(strQuantifierRule, 0, sizeof(char) * 1024);
-                        sprintf(strQuantifierRule, "auto q%02d = new SyntaxTree::Syntax::Quantity(SyntaxTree::Syntax::QuantityType::OneOrMoreMatchType);", numberOfRecord);
+                        char* quantifierType = (char*) malloc(sizeof(char) * 16);
+                        memset(quantifierType, 0, sizeof(char) * 16);
+                        t->getReader()->read(quantifierType, 1);
+                        if (quantifierType[0] == '+') {
+                            sprintf(strQuantifierRule,
+                                "auto q%02d = new SyntaxTree::Syntax::Quantity(SyntaxTree::Syntax::QuantityType::OneOrMoreMatchType);",
+                                numberOfRecord
+                            );
+                        }
+                        if (quantifierType[0] == '?') {
+                            sprintf(strQuantifierRule,
+                                "auto q%02d = new SyntaxTree::Syntax::Quantity(SyntaxTree::Syntax::QuantityType::ZeroOrOneMatchType);",
+                                numberOfRecord
+                            );
+                        }
                         sprintf(strInnerRule, R"("%s", q%02d)", strName, numberOfRecord);
                     }
                 }
