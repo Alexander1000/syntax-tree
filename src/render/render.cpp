@@ -8,6 +8,7 @@ namespace SyntaxTree::Render
     Render::Render()
     {
         this->lastNumberOfRecord = 0;
+        this->lastNumberOfQuantifier = 0;
     }
 
     void Render::renderTree(IOBuffer::IOBuffer *buffer, SyntaxTree::Syntax::SyntaxElement *tree)
@@ -151,17 +152,17 @@ namespace SyntaxTree::Render
                             sprintf(
                                 strQuantifierRule,
                                 "auto q%02d = new SyntaxTree::Syntax::Quantity(SyntaxTree::Syntax::QuantityType::OneOrMoreMatchType);",
-                                numberOfRecord
+                                this->lastNumberOfQuantifier
                             );
                         }
                         if (quantifierType[0] == '?') {
                             sprintf(
                                 strQuantifierRule,
                                 "auto q%02d = new SyntaxTree::Syntax::Quantity(SyntaxTree::Syntax::QuantityType::ZeroOrOneMatchType);",
-                                numberOfRecord
+                                this->lastNumberOfQuantifier
                             );
                         }
-                        sprintf(strInnerRule, R"("%s", q%02d)", strName, numberOfRecord);
+                        sprintf(strInnerRule, R"("%s", q%02d)", strName, this->lastNumberOfQuantifier);
                     }
                 }
             }
@@ -191,17 +192,17 @@ namespace SyntaxTree::Render
                             sprintf(
                                 strQuantifierRule,
                                 "auto q%02d = new SyntaxTree::Syntax::Quantity(SyntaxTree::Syntax::QuantityType::OneOrMoreMatchType);",
-                                numberOfRecord
+                                this->lastNumberOfQuantifier
                             );
                         }
                         if (quantifierType[0] == '?') {
                             sprintf(
                                 strQuantifierRule,
                                 "auto q%02d = new SyntaxTree::Syntax::Quantity(SyntaxTree::Syntax::QuantityType::ZeroOrOneMatchType);",
-                                numberOfRecord
+                                this->lastNumberOfQuantifier
                             );
                         }
-                        sprintf(strInnerRule, R"(this->tokenMap->getType("%s"), q%02d)", strName, numberOfRecord);
+                        sprintf(strInnerRule, R"(this->tokenMap->getType("%s"), q%02d)", strName, this->lastNumberOfQuantifier);
                     }
                 } else {
                     sprintf(strInnerRule, "this->tokenMap->getType(\"%s\")", strName);
@@ -213,6 +214,7 @@ namespace SyntaxTree::Render
             memset(strRuleRecord, 0, sizeof(char) * 1024);
             if (strQuantifierRule != nullptr) {
                 sprintf(strRuleRecord, "%s\nrule%02d->addMatch(new SyntaxTree::Syntax::RuleMatch(%s));\n", strQuantifierRule, numberOfRecord, strInnerRule);
+                this->lastNumberOfQuantifier++;
             } else {
                 sprintf(strRuleRecord, "rule%02d->addMatch(new SyntaxTree::Syntax::RuleMatch(%s));\n", numberOfRecord, strInnerRule);
             }
