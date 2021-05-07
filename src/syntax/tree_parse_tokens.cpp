@@ -59,6 +59,7 @@ namespace SyntaxTree::Syntax
                 if (quantity == nullptr) {
                     if (Tree::check_match_rule(*itCopy, itMatch)) {
                         ruleMatches->push_back(*itCopy);
+                        itCopy++;
                     } else {
                         foundMatchRule = false;
                     }
@@ -77,10 +78,15 @@ namespace SyntaxTree::Syntax
 
                             if (count == 0) {
                                 foundMatchRule = false;
-                            } else {
-                                itCopy--;
                             }
 
+                            break;
+                        }
+                        case QuantityType::ZeroOrOneMatchType: {
+                            if (Tree::check_match_rule(*itCopy, itMatch)) {
+                                ruleMatches->push_back(*itCopy);
+                                itCopy++;
+                            }
                             break;
                         }
                         default: {
@@ -93,8 +99,6 @@ namespace SyntaxTree::Syntax
                 if (!foundMatchRule) {
                     break;
                 }
-
-                itCopy++;
             }
 
             if (foundMatchRule) {
