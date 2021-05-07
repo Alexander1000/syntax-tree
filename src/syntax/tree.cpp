@@ -25,27 +25,31 @@ namespace SyntaxTree::Syntax
         rule01->addMatch(new SyntaxTree::Syntax::RuleMatch(this->tokenMap->getType("type"), "s"));
         rule01->addMatch(new SyntaxTree::Syntax::RuleMatch(this->tokenMap->getType("doubleDot")));
         rule01->addMatch(new SyntaxTree::Syntax::RuleMatch(this->tokenMap->getType("name")));
+        rule01->addMatch(new SyntaxTree::Syntax::RuleMatch(this->tokenMap->getType("quantifier")));
         this->rules->push_back(rule01);
 
         auto rule02 = new SyntaxTree::Syntax::Rule("rule");
-        rule02->addMatch(new SyntaxTree::Syntax::RuleMatch(this->tokenMap->getType("type"), "t"));
+        rule02->addMatch(new SyntaxTree::Syntax::RuleMatch(this->tokenMap->getType("type"), "s"));
         rule02->addMatch(new SyntaxTree::Syntax::RuleMatch(this->tokenMap->getType("doubleDot")));
         rule02->addMatch(new SyntaxTree::Syntax::RuleMatch(this->tokenMap->getType("name")));
         this->rules->push_back(rule02);
 
-        auto rule03 = new SyntaxTree::Syntax::Rule("ruleList");
-        rule03->addMatch(new SyntaxTree::Syntax::RuleMatch("rule"));
-        rule03->addMatch(new SyntaxTree::Syntax::RuleMatch("rule"));
+        auto rule03 = new SyntaxTree::Syntax::Rule("rule");
+        rule03->addMatch(new SyntaxTree::Syntax::RuleMatch(this->tokenMap->getType("type"), "t"));
+        rule03->addMatch(new SyntaxTree::Syntax::RuleMatch(this->tokenMap->getType("doubleDot")));
+        rule03->addMatch(new SyntaxTree::Syntax::RuleMatch(this->tokenMap->getType("name")));
+        rule03->addMatch(new SyntaxTree::Syntax::RuleMatch(this->tokenMap->getType("quantifier")));
         this->rules->push_back(rule03);
 
-        auto rule04 = new SyntaxTree::Syntax::Rule("ruleList");
-        rule04->addMatch(new SyntaxTree::Syntax::RuleMatch("ruleList"));
-        rule04->addMatch(new SyntaxTree::Syntax::RuleMatch("rule"));
+        auto rule04 = new SyntaxTree::Syntax::Rule("rule");
+        rule04->addMatch(new SyntaxTree::Syntax::RuleMatch(this->tokenMap->getType("type"), "t"));
+        rule04->addMatch(new SyntaxTree::Syntax::RuleMatch(this->tokenMap->getType("doubleDot")));
+        rule04->addMatch(new SyntaxTree::Syntax::RuleMatch(this->tokenMap->getType("name")));
         this->rules->push_back(rule04);
 
         auto rule05 = new SyntaxTree::Syntax::Rule("ruleList");
-        rule05->addMatch(new SyntaxTree::Syntax::RuleMatch("ruleList"));
-        rule05->addMatch(new SyntaxTree::Syntax::RuleMatch("ruleList"));
+        auto q05 = new SyntaxTree::Syntax::Quantity(SyntaxTree::Syntax::QuantityType::OneOrMoreMatchType);
+        rule05->addMatch(new SyntaxTree::Syntax::RuleMatch("rule", q05));
         this->rules->push_back(rule05);
 
         auto rule06 = new SyntaxTree::Syntax::Rule("record");

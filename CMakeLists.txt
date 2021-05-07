@@ -18,6 +18,7 @@ set(SYNTAX_TREE_SHARED_SOURCES
     src/token/open-brace-token.cpp
     src/token/close-brace-token.cpp
     src/token/match-value-token.cpp
+    src/token/quantifier-token.cpp
     src/token/token_map.cpp
     src/position.cpp
     src/syntax/rule.cpp
@@ -25,6 +26,7 @@ set(SYNTAX_TREE_SHARED_SOURCES
     src/syntax/syntax_element.cpp
     src/syntax/tree.cpp
     src/syntax/tree_parse_tokens.cpp
+    src/syntax/quantity.cpp
     src/render/render.cpp
     src/config.cpp
     src/injector.cpp

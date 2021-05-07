@@ -2,6 +2,7 @@
 #define SYNTAX_TREE_SYNTAX_INCLUDE_H
 
 #include <syntax-tree/token.h>
+#include <syntax-tree/quantity.h>
 #include <list>
 
 namespace SyntaxTree::Syntax
@@ -21,12 +22,15 @@ namespace SyntaxTree::Syntax
     {
     public:
         explicit RuleMatch(int);
+        explicit RuleMatch(int, Quantity*);
         explicit RuleMatch(int, const char*);
         explicit RuleMatch(const char*);
+        explicit RuleMatch(const char*, Quantity*);
         RuleMatchType getType();
         int getTokenType();
         const char* getRuleName();
         const char* getValue();
+        Quantity* getQuantity();
     private:
         RuleMatchType type;
         union {
@@ -34,6 +38,7 @@ namespace SyntaxTree::Syntax
             const char* ruleName;
         } value;
         const char* tokenValue;
+        Quantity* quantity;
     };
 
     class Rule
@@ -85,6 +90,7 @@ namespace SyntaxTree::Syntax
         virtual SyntaxElement* beforeParse(std::list<SyntaxElement*>*);
         SyntaxElement* parse(std::list<SyntaxElement*>*);
         std::list<SyntaxElement*>* run_rule(Rule*, std::list<SyntaxElement*>*);
+        static bool check_match_rule(SyntaxElement*, RuleMatch*);
     };
 }
 

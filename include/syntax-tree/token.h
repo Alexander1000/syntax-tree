@@ -18,6 +18,7 @@ namespace SyntaxTree::Token
         CloseBraceType,
         DoubleDotType,
         MatchValueType,
+        QuantifierType,
     };
 
     class TokenMap
@@ -97,6 +98,13 @@ namespace SyntaxTree::Token
     {
     public:
         MatchValueToken(int line, int column, IOBuffer::IOReader *reader);
+        int getType() final;
+    };
+
+    class QuantifierToken : public Token
+    {
+    public:
+        QuantifierToken(int line, int column, IOBuffer::IOReader *reader);
         int getType() final;
     };
 }

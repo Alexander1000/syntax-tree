@@ -131,24 +131,46 @@ namespace SyntaxTree::Render
             memset(strName, 0, sizeof(char) * 64);
             reader->read(strName, 63);
 
+            char* strQuantifierRule = nullptr;
+
             char* strInnerRule = (char*) malloc(sizeof(char) * 1024);
             memset(strInnerRule, 0, sizeof(char) * 1024);
 
             if (strcmp(strType, "s") == 0) {
                 sprintf(strInnerRule, "\"%s\"", strName);
+                if (std::next(it) != ruleListSyntax->end()) {
+                    it++; // quantifier
+                    auto t = (*it)->getToken();
+                    if (t->getType() == SyntaxTree::Token::Type::QuantifierType) {
+                        strQuantifierRule = (char *) malloc(sizeof(char) * 1024);
+                        memset(strQuantifierRule, 0, sizeof(char) * 1024);
+                        sprintf(strQuantifierRule, "auto q%02d = new SyntaxTree::Syntax::Quantity(SyntaxTree::Syntax::QuantityType::OneOrMoreMatchType);", numberOfRecord);
+                        sprintf(strInnerRule, "\"%s\", q%02d", strName, numberOfRecord);
+                    }
+                }
             }
+
             if (strcmp(strType, "t") == 0) {
                 if (std::next(it) != ruleListSyntax->end()) {
-                    it++; // ( - token
-                    it++; // match token value
-                    auto matchValueToken = (*it)->getToken();
-                    reader = (IOBuffer::IOMemoryBuffer*) matchValueToken->getReader();
-                    reader->setPosition(0);
-                    char* strValue = (char*) malloc(sizeof(char) * 64);
-                    memset(strValue, 0, sizeof(char) * 64);
-                    reader->read(strValue, 63);
-                    it++; // ) - token
-                    sprintf(strInnerRule, "this->tokenMap->getType(\"%s\"), \"%s\"", strName, strValue);
+                    it++; // ( - token or quantifier
+                    auto t = (*it)->getToken();
+                    if (t->getType() == SyntaxTree::Token::Type::OpenBraceType) {
+                        it++; // match token value
+                        auto matchValueToken = (*it)->getToken();
+                        reader = (IOBuffer::IOMemoryBuffer *) matchValueToken->getReader();
+                        reader->setPosition(0);
+                        char *strValue = (char *) malloc(sizeof(char) * 64);
+                        memset(strValue, 0, sizeof(char) * 64);
+                        reader->read(strValue, 63);
+                        it++; // ) - token
+                        sprintf(strInnerRule, "this->tokenMap->getType(\"%s\"), \"%s\"", strName, strValue);
+                    }
+                    if (t->getType() == SyntaxTree::Token::Type::QuantifierType) {
+                        strQuantifierRule = (char *) malloc(sizeof(char) * 1024);
+                        memset(strQuantifierRule, 0, sizeof(char) * 1024);
+                        sprintf(strQuantifierRule, "auto q%02d = new SyntaxTree::Syntax::Quantity(SyntaxTree::Syntax::QuantityType::OneOrMoreMatchType);", numberOfRecord);
+                        sprintf(strInnerRule, "this->tokenMap->getType(\"%s\", q%02d)", strName, numberOfRecord);
+                    }
                 } else {
                     sprintf(strInnerRule, "this->tokenMap->getType(\"%s\")", strName);
                 }
@@ -157,7 +179,11 @@ namespace SyntaxTree::Render
             // make final record
             char* strRuleRecord = (char*) malloc(sizeof(char) * 1024);
             memset(strRuleRecord, 0, sizeof(char) * 1024);
-            sprintf(strRuleRecord, "rule%02d->addMatch(new SyntaxTree::Syntax::RuleMatch(%s));\n", numberOfRecord, strInnerRule);
+            if (strQuantifierRule != nullptr) {
+                sprintf(strRuleRecord, "%s\nrule%02d->addMatch(new SyntaxTree::Syntax::RuleMatch(%s));\n", strQuantifierRule, numberOfRecord, strInnerRule);
+            } else {
+                sprintf(strRuleRecord, "rule%02d->addMatch(new SyntaxTree::Syntax::RuleMatch(%s));\n", numberOfRecord, strInnerRule);
+            }
             buffer->write(strRuleRecord, strlen(strRuleRecord));
         }
     }

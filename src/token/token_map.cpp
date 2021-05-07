@@ -12,6 +12,7 @@ namespace SyntaxTree::Token
         (*this->tokenMap)["closeBrace"] = Type::CloseBraceType;
         (*this->tokenMap)["open"] = Type::OpenType;
         (*this->tokenMap)["close"] = Type::CloseType;
+        (*this->tokenMap)["quantifier"] = Type::QuantifierType;
     }
 
     int TokenMap::getType(const char *typeName) {
