@@ -213,7 +213,7 @@ namespace SyntaxTree::Render
             char* strRuleRecord = (char*) malloc(sizeof(char) * 1024);
             memset(strRuleRecord, 0, sizeof(char) * 1024);
             if (strQuantifierRule != nullptr) {
-                sprintf(strRuleRecord, "%s\nrule%02d->addMatch(new SyntaxTree::Syntax::RuleMatch(%s));\n", strQuantifierRule, this->lastNumberOfQuantifier, strInnerRule);
+                sprintf(strRuleRecord, "%s\nrule%02d->addMatch(new SyntaxTree::Syntax::RuleMatch(%s));\n", strQuantifierRule, numberOfRecord, strInnerRule);
                 this->lastNumberOfQuantifier++;
             } else {
                 sprintf(strRuleRecord, "rule%02d->addMatch(new SyntaxTree::Syntax::RuleMatch(%s));\n", numberOfRecord, strInnerRule);

@@ -49,7 +49,7 @@ namespace SyntaxTree::Syntax
 
         auto rule05 = new SyntaxTree::Syntax::Rule("ruleList");
         auto q00 = new SyntaxTree::Syntax::Quantity(SyntaxTree::Syntax::QuantityType::OneOrMoreMatchType);
-        rule00->addMatch(new SyntaxTree::Syntax::RuleMatch("rule", q00));
+        rule05->addMatch(new SyntaxTree::Syntax::RuleMatch("rule", q00));
         this->rules->push_back(rule05);
 
         auto rule06 = new SyntaxTree::Syntax::Rule("record");
